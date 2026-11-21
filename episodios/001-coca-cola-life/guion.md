@@ -106,8 +106,8 @@ Ambient electrónico suave, ~80–90 BPM, pads brillantes y campanitas tipo men�
 
 | Archivo | Uso propuesto | Nota |
 |---|---|---|
-| `Coca Cola Life VidaHD - Max Espinosa (720p, h264).mp4` | Bloques 0:07 y 0:34 | ⚠️ **Parece la publicidad de México, no la de Argentina**: la locución usa "tú", dice "refrescos" y cierra con "Destapa tu naturaleza". Para una cuenta argentina conviene conseguir el comercial argentino de 2013. Buscar: `"Coca-Cola Life" comercial Argentina 2013` o `Coca-Cola Life publicidad agencia Santo`. Si no aparece, se puede usar este sin audio, solo imagen. |
-| `coca cola life.jpg` | Gancho 0:00 y collage #1 | — |
+| `Coca Cola Life VidaHD - Max Espinosa (720p, h264).mp4` | Bloques 0:06 y 0:34 | ⚠️ **Parece la publicidad de México, no la de Argentina**: la locución usa "tú", dice "refrescos" y cierra con "Destapa tu naturaleza". Para una cuenta argentina conviene conseguir el comercial argentino de 2013. Buscar: `"Coca-Cola Life" comercial Argentina 2013` o `Coca-Cola Life publicidad agencia Santo`. Si no aparece, se puede usar este sin audio, solo imagen. |
+| `coca cola life.jpg` | Revelación 0:03 y collage #1 | — |
 | `coca cola life.webp` | Collage #1 | — |
 | `1011141a62b3f69.jpg` | Collage #1 o #2 | — |
 
