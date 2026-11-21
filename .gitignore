@@ -1,0 +1,19 @@
+# Material pesado: vive en Google Drive
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wav
+*.aif
+*.psd
+*.aep
+*.prproj
+
+# Renders
+render/
+export/
+
+# Sistema
+.DS_Store
+Thumbs.db
+node_modules/
