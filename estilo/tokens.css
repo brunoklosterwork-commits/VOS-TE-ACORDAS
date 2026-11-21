@@ -1,0 +1,83 @@
+/* ==========================================================
+   vosteacordás? — tokens de estilo
+   Sacados de las referencias en estilo/referencias/.
+   Importar en cada animación:  <link rel="stylesheet" href="../../../estilo/tokens.css">
+   ========================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800;900&display=swap");
+
+:root {
+  /* --- Lienzo --- */
+  --lienzo-w: 1080px;
+  --lienzo-h: 1920px;
+  --safe-top: 250px;      /* tapado por la interfaz de Reels/TikTok */
+  --safe-bottom: 400px;
+  --safe-right: 150px;
+
+  /* --- Cielo / Aero (paleta-colina-agua.jpg, ventana-reproductor-aero.jpg) --- */
+  --cielo-profundo: #0e466b;
+  --cielo: #1a82cc;
+  --cielo-claro: #519bf5;
+  --cielo-brillo: #8be3fe;
+  --cian-vista: #22adf8;
+  --cian-glow: #4fcff5;
+
+  /* --- Colina / verdes (paleta-colina-agua.jpg, tipografia-glossy.jpg) --- */
+  --verde-colina: #80cd05;
+  --verde-aero: #96d076;
+  --verde-musgo: #5e8d4f;
+  --verde-agua: #66c3af;
+  --verde-agua-claro: #9ccfbf;
+  --menta: #ccf4c8;
+
+  /* --- Interfaz --- */
+  --azul-barra: #2c5e95;       /* textos y barras de reproductor */
+  --vidrio-borde: #e4edf6;
+  --nube: #f7f9fc;
+  --texto-oscuro: #1b2a3a;
+
+  /* --- Foto de archivo (foto-calle-buenos-aires.jpg) --- */
+  --foto-calido: #c6bcb3;
+  --foto-sombra: #31272b;
+
+  /* --- Degradados --- */
+  --grad-cielo: linear-gradient(180deg, var(--cielo-claro) 0%, var(--cielo) 45%, var(--cielo-brillo) 100%);
+  --grad-colina: linear-gradient(180deg, #a6e22e 0%, var(--verde-colina) 40%, #4f9a12 100%);
+  --grad-vista-fondo: linear-gradient(135deg, #0f5d73 0%, var(--verde-agua) 45%, #b9f0d8 70%, #1f8fa8 100%);
+  --grad-texto-glossy: linear-gradient(180deg, #ffffff 0%, #ffffff 45%, #dfe9e2 55%, #c4d4c8 100%);
+  --grad-texto-cromo: linear-gradient(180deg, #ffffff 0%, #f0f0f0 48%, #b9c2c9 52%, #e9eef2 100%);
+
+  /* --- Vidrio Aero --- */
+  --vidrio-fondo: rgba(255, 255, 255, 0.28);
+  --vidrio-blur: 14px;
+  --vidrio-brillo: linear-gradient(180deg, rgba(255,255,255,.65) 0%, rgba(255,255,255,.15) 50%, rgba(255,255,255,0) 51%);
+  --sombra-ventana: 0 18px 50px rgba(0, 40, 80, .35), 0 0 0 1px rgba(255,255,255,.5) inset;
+
+  /* --- Tipografía --- */
+  /* Sistema: Segoe UI (Windows). Alternativa libre: Nunito Sans (redondeada, humanista). */
+  --font-titulo: "Segoe UI", "Nunito Sans", "Trebuchet MS", sans-serif;
+  --font-ui-vista: "Segoe UI", "Nunito Sans", Tahoma, sans-serif;
+  --font-ui-xp: Tahoma, Verdana, "Segoe UI", sans-serif;
+
+  /* --- Movimiento --- */
+  --ease-aero: cubic-bezier(.22, 1, .36, 1);          /* ease-out suave */
+  --ease-rebote: cubic-bezier(.34, 1.56, .64, 1);     /* rebote leve */
+  --dur-corta: 300ms;
+  --dur-media: 600ms;
+  --dur-larga: 1200ms;
+}
+
+/* Texto glossy tipo "EXPRESSING LANGUAGE with TYPE" */
+.texto-glossy {
+  font-family: var(--font-titulo);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  background: var(--grad-texto-glossy);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 6px rgba(0, 50, 20, .35));
+}
+.texto-glossy.liviano { font-weight: 300; text-transform: none; }
+.texto-glossy.cromo { background-image: var(--grad-texto-cromo); font-weight: 900; }

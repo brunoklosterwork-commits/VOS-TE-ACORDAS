@@ -6,6 +6,7 @@ Videos verticales (Reels / TikTok / Shorts) sobre nostalgia argentina de los 200
 
 ```
 skill/          → la skill de Claude con el concepto y el flujo de trabajo (SKILL.md)
+estilo/         → LO MÁS IMPORTANTE: guía visual, tokens.css, tablero.html y referencias
 componentes/    → piezas animadas reutilizables (ventanas XP, Vista, collage parallax, subtítulos…)
 assets/         → recursos comunes a todos los episodios
   fuentes/
