@@ -1,6 +1,6 @@
 # Episodio 002 — Flappy Bird: el juego que valía un iPhone de cien mil dólares
 
-**Estado:** borrador v1 (Fase 1), para revisar antes de generar la voz
+**Estado:** v2: gancho original sin "todavía" (decisión del autor)
 **Formato:** 9:16 · 1080×1920 · ~45 s
 **Locución:** ~105 palabras
 
@@ -8,7 +8,7 @@
 
 ## Locución propuesta (corregida para que todo sea verificable)
 
-> En 2014, un iPhone usado llegó a ofertas de casi cien mil dólares… solo por tener este juego instalado. (…)
+> Tu iPhone puede valer cien mil dólares… si tiene este juego instalado. (…)
 > En febrero de ese año, Flappy Bird era el fenómeno más grande del planeta.
 > Su creador, un programador de Vietnam, ganaba cincuenta mil dólares por día.
 > Pero la fama se le fue de las manos: la gente se volvía adicta, lo acosaban… y él dijo que no podía dormir. (…)
@@ -21,7 +21,7 @@
 
 | Original | Propuesta | Motivo |
 |---|---|---|
-| "Tu iPhone **puede valer** cien mil dólares… si **todavía** tiene este juego instalado." | "En 2014, un iPhone usado **llegó a ofertas** de casi cien mil dólares… solo por tener este juego instalado." | Los US$ 99.900 fueron **ofertas en una subasta de eBay**, posiblemente infladas, y eBay bajó la publicación antes de que terminara. Nunca se confirmó una venta, y hoy no vale eso. Dicho en presente es falso y los comentarios lo van a marcar. El gancho sigue siendo igual de fuerte. |
+| "Tu iPhone puede valer cien mil dólares… si **todavía** tiene este juego instalado." | "Tu iPhone puede valer cien mil dólares… si tiene este juego instalado." (**elegido**: se saca "todavía") | Los US$ 99.900 fueron **ofertas en una subasta de eBay**, posiblemente infladas, y eBay bajó la publicación antes de que terminara. Nunca se confirmó una venta, y hoy no vale eso. Dicho en presente es falso y los comentarios lo van a marcar. El gancho sigue siendo igual de fuerte. |
 | "Su creador ganaba…" | "Su creador, **un programador de Vietnam**, ganaba…" | Le da cara a la historia: un pibe que hizo el juego en unos días. Opcional. |
 | "la gente se volvía loca de la frustración, y él empezó a recibir amenazas constantes" | "la gente se volvía adicta, lo acosaban… y él dijo que no podía dormir" | Él explicó que lo bajó porque se había vuelto **adictivo**, que sentía **culpa** y que **no podía dormir**. Las amenazas de muerte más conocidas llegaron **después** de borrarlo. Acoso antes sí hubo. |
 | Tuit: "En 22 horas voy a borrar el juego. No doy más" | "Perdón. En 22 horas voy a bajar Flappy Bird. No puedo más." | Si va entre comillas, conviene que sea la traducción fiel del tuit real: *"I am sorry 'Flappy Bird' users, 22 hours from now, I will take 'Flappy Bird' down. I cannot take this anymore."* |
@@ -33,7 +33,7 @@
 
 | Tiempo | Voz en off | Visual / Archivo | Animación / UI | SFX |
 |---|---|---|---|---|
-| 0:00–0:05 | En 2014, un iPhone usado llegó a ofertas de casi cien mil dólares… solo por tener este juego instalado. | iPhone 5s (foto o render) con la pantalla del juego. | **Ventana Aero de subasta** (genérica, sin logo de eBay): "iPhone 5s 16 GB — con Flappy Bird instalado". El precio sube a toda velocidad **US$ 650 → US$ 99.900**, "74 ofertas" parpadea. Con "este juego", zoom a la pantalla del teléfono. | Clics de oferta acelerando + "ding" final. |
+| 0:00–0:04 | Tu iPhone puede valer cien mil dólares… si tiene este juego instalado. | iPhone 5s (foto o render) con la pantalla del juego. | **Ventana Aero de subasta** (genérica, sin logo de eBay): "iPhone 5s 16 GB — con Flappy Bird instalado". El precio sube a toda velocidad **US$ 650 → US$ 99.900**, "74 ofertas" parpadea. Con "este juego", zoom a la pantalla del teléfono. | Clics de oferta acelerando + "ding" final. |
 | 0:05–0:09 | En febrero de ese año, Flappy Bird era el fenómeno más grande del planeta. | **Archivo:** gameplay en ventana reproductor. | Globo glossy con chip **"#1 en más de 100 países"** y contador **"50 millones de descargas"**. | Whoosh + burbujas. |
 | 0:09–0:13 | Su creador, un programador de Vietnam, ganaba cincuenta mil dólares por día. | Silueta (nunca mostró la cara en la entrevista con Forbes) con un "?" glossy. | Contador **US$ 50.000 / día** que se llena como barra de progreso Vista; monedas que caen. | Monedas suaves. |
 | 0:13–0:19 | Pero la fama se le fue de las manos: la gente se volvía adicta, lo acosaban… y él dijo que no podía dormir. | Pantalla que se llena. | **Lluvia de notificaciones** estilo XP/mensajería que se apilan ("¡¿cómo se pasa el tubo 3?!", "no puedo parar", "devolvé mi vida"…). Al final, reloj **3:00 AM** y todo se apaga. | Notificaciones en cascada → silencio. |
