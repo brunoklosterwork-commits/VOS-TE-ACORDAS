@@ -3,14 +3,16 @@ import numpy as np, wave
 
 SR = 44100
 SFX = .45   # efectos sutiles
-DUR = 41.0
+DUR = 34.2
 N = int(SR * DUR)
 t = np.arange(N) / SR
 out = np.zeros(N)
 
 OLD=[0,3,6,10,14,18,21,24,28,31,34,38,42,45,49,52,57]
 NEW=[0,3.15,5.55,10.25,15.25,20.1,23.0,25.85,31.15,34.65,37.05,41.2,45.4,46.9,49.8,51.05,57]
-W=lambda x: x
+import json as _j
+_M=_j.load(open('map.json'))
+W=lambda x: float(np.interp(x,_M['old'],_M['new']))
 
 def env(n, a=.01, r=.2):
     e = np.ones(n); na, nr = min(int(a * SR), n // 2), min(int(r * SR), n // 2)
@@ -54,7 +56,7 @@ for k in range(0, int(DUR * 2)):
     if (k * 7) % 5 == 0:
         put(tone([1046, 1318, 1568, 1760][(k * 3) % 4], 1.2, 3, (1, .2)) * .08, at)
 # volumen del pad (ambiente bajito)
-vol = np.interp(t,[0,.5,19.4,19.8,21.5,22,28.7,29.2,40,41],[.3,.5,.5,.08,.08,.22,.22,.5,.5,0])
+vol = np.interp(t,[W(v) for v in [0,.5,19.4,19.8,21.5,22,28.7,29.2,40,41]],[.3,.5,.5,.08,.08,.22,.22,.5,.5,0])
 out += pad * vol * .11
 air = np.random.default_rng(3).standard_normal(N)
 for _ in range(2): air = np.convolve(air, np.ones(40)/40, mode='same')
@@ -85,11 +87,13 @@ put(error(), 27.95, .55)
 put(whoosh(1.0), 28.85, .35)
 for i in range(16): put(bubble(480+i*40), 28.9+i*.06, .25)
 for i in range(4): put(click(), 31.75+i*.35, .8); put(coin(), 31.8+i*.35, .15)
+# whoosh en cada corte
+for c in [4.9,9.9,14.7,21.55,28.8,35.85]: put(whoosh(.35), c-.12, .3)
 # 7 cierre
 for i in range(8): put(bubble(520+i*60), 35.9+i*.08, .2)
 put(notif(), 36.1, .3)
 import subprocess
-raw = subprocess.run(['ffmpeg','-v','error','-i','mat/vo.mp3','-ac','1','-ar',str(SR),'-f','s16le','-'],capture_output=True).stdout
+raw = subprocess.run(['ffmpeg','-v','error','-i','mat/vo_fast.wav','-ac','1','-ar',str(SR),'-f','s16le','-'],capture_output=True).stdout
 vo = np.frombuffer(raw, np.int16).astype(float) / 32768
 vo = np.pad(vo, (0, max(0, N - len(vo))))[:N]
 # ducking: baja el fondo cuando habla

@@ -148,21 +148,32 @@ def(35.85,41,`<div class="cielo"></div>${paisaje}<div class="bb">${bubbles(22,13
 /* subtítulos palabra por palabra (máx. 3), sin fondo, sombra difusa; palabras clave en otro peso/color */
 const GR=[{"t1": 1.12, "w": [[0.1, "Tu", 0], [0.31, "iPhone", 0], [0.78, "puede", 0]]}, {"t1": 1.88, "w": [[1.12, "valer", 0], [1.46, "cien", 1], [1.67, "mil", 1]]}, {"t1": 2.95, "w": [[1.88, "dólares…", 1]]}, {"t1": 3.78, "w": [[2.95, "si", 0], [3.14, "tiene", 0], [3.46, "este", 0]]}, {"t1": 5.1, "w": [[3.78, "juego", 1], [4.09, "instalado.", 0]]}, {"t1": 6.0, "w": [[5.1, "En", 0], [5.31, "febrero", 0], [5.79, "de", 0]]}, {"t1": 6.95, "w": [[6.0, "2014,", 1]]}, {"t1": 7.68, "w": [[6.95, "Flappy", 0], [7.15, "Bird", 0], [7.35, "era", 0]]}, {"t1": 8.67, "w": [[7.68, "el", 0], [7.88, "fenómeno", 1], [8.46, "más", 0]]}, {"t1": 10.1, "w": [[8.67, "grande", 0], [8.99, "del", 0], [9.2, "planeta.", 1]]}, {"t1": 10.66, "w": [[10.1, "Su", 0], [10.31, "creador,", 0]]}, {"t1": 11.7, "w": [[10.66, "un", 0], [10.87, "programador", 0], [11.49, "de", 0]]}, {"t1": 12.25, "w": [[11.7, "Vietnam,", 1]]}, {"t1": 13.49, "w": [[12.25, "ganaba", 0], [12.76, "cincuenta", 1], [13.27, "mil", 1]]}, {"t1": 14.85, "w": [[13.49, "dólares", 1], [14.0, "por", 0], [14.22, "día.", 0]]}, {"t1": 15.49, "w": [[14.85, "Pero", 0], [15.1, "la", 0], [15.25, "fama", 0]]}, {"t1": 15.95, "w": [[15.49, "se", 0], [15.65, "le", 0], [15.8, "fue", 0]]}, {"t1": 16.85, "w": [[15.95, "de", 0], [16.1, "las", 0], [16.25, "manos:", 0]]}, {"t1": 17.63, "w": [[16.85, "la", 0], [17.07, "gente", 0], [17.42, "se", 0]]}, {"t1": 18.47, "w": [[17.63, "volvía", 0], [17.98, "adicta,", 1]]}, {"t1": 19.55, "w": [[18.47, "lo", 0], [18.68, "acosaban…", 1]]}, {"t1": 20.29, "w": [[19.55, "y", 0], [19.75, "él", 0], [19.96, "dijo", 0]]}, {"t1": 21.02, "w": [[20.29, "que", 0], [20.49, "no", 0], [20.69, "podía", 0]]}, {"t1": 21.7, "w": [[21.02, "dormir.", 1]]}, {"t1": 22.43, "w": [[21.7, "Un", 0], [21.87, "sábado", 0], [22.25, "a", 0]]}, {"t1": 23.97, "w": [[22.43, "la", 0], [22.6, "tarde", 0], [22.87, "tuiteó:", 1]]}, {"t1": 28.9, "w": [[27.95, "Y", 0], [28.16, "cumplió.", 1]]}, {"t1": 29.55, "w": [[28.9, "De", 0], [29.12, "un", 0], [29.33, "día", 0]]}, {"t1": 30.47, "w": [[29.55, "para", 0], [29.9, "el", 0], [30.12, "otro,", 0]]}, {"t1": 31.75, "w": [[30.47, "internet", 0], [30.96, "explotó:", 1]]}, {"t1": 32.75, "w": [[31.75, "pedían", 0], [32.08, "fortunas", 1], [32.54, "por", 0]]}, {"t1": 34.1, "w": [[32.75, "celulares", 0], [33.34, "usados,", 0]]}, {"t1": 34.85, "w": [[34.1, "solo", 0], [34.39, "por", 0], [34.56, "tener", 0]]}, {"t1": 36.2, "w": [[34.85, "la", 0], [35.03, "app", 0], [35.2, "guardada.", 1]]}];
 const cap=document.createElement('div');cap.id='cap2';stage.appendChild(cap);
-const capStyle=document.createElement('style');capStyle.textContent=`#cap2{position:absolute;left:60px;right:150px;top:1385px;text-align:center;white-space:nowrap;pointer-events:none}
-#cap2 span{display:inline-block;margin:0 .14em;font:700 70px/1.1 var(--t);color:#fff;letter-spacing:-.01em;
+const capStyle=document.createElement('style');capStyle.textContent=`#cap2{position:absolute;left:40px;right:120px;top:1370px;text-align:center;white-space:nowrap;pointer-events:none}
+#cap2 span{display:inline-block;margin:0 .14em;font:700 88px/1.1 var(--t);color:#fff;letter-spacing:-.01em;
  text-shadow:0 3px 24px rgba(0,18,36,.7),0 1px 5px rgba(0,18,36,.5)}
 #cap2 span.k{font-weight:900;font-style:italic;color:#c6ff5e;text-shadow:0 3px 24px rgba(0,25,10,.8),0 1px 5px rgba(0,25,10,.6)}`;
 document.head.appendChild(capStyle);
 const limpio=w=>w.replace(/[,.:]+$/,'');
-window.DUR=41;
-window.render=async t=>{pend.length=0;
+window.DUR=34.2;
+const MAP={"old": [0.0, 0.04000000000000001, 2.41, 2.89, 4.71, 5.04, 6.81, 6.890000000000001, 9.71, 10.04, 12.110000000000001, 12.19, 14.51, 14.79, 16.56, 16.790000000000003, 19.36, 19.490000000000002, 21.41, 21.64, 23.209999999999997, 23.490000000000002, 24.009999999999998, 24.19, 26.459999999999997, 26.64, 27.459999999999997, 27.89, 28.56, 28.84, 31.509999999999998, 31.69, 33.86, 34.04, 35.660000000000004, 35.94, 36.36, 36.79, 38.160000000000004, 41.0], "new": [0.0, 0.0, 2.116, 2.205, 3.83, 3.92, 5.5, 5.589, 8.107, 8.196, 10.045, 10.134, 12.205, 12.295, 13.875, 13.964, 16.259, 16.348, 18.062, 18.152, 19.554, 19.643, 20.107, 20.196, 22.223, 22.312, 23.045, 23.268, 23.866, 24.062, 26.446, 26.536, 28.473, 28.562, 30.009, 30.232, 30.607, 30.696, 31.92, 34.2]};
+const interp=(x,xs,ys)=>{let i=0;while(i<xs.length-2&&x>=xs[i+1])i++;const k=(x-xs[i])/(xs[i+1]-xs[i]);return ys[i]+clamp(k,0,1)*(ys[i+1]-ys[i])};
+const toOld=tn=>interp(tn,MAP.new,MAP.old), toNew=to=>interp(to,MAP.old,MAP.new);
+const CUTN=[0.0, 3.882, 8.158, 12.266, 18.117, 24.034, 30.16, 34.2];
+const fl=document.createElement('div');fl.style.cssText='position:absolute;inset:0;background:#fff;pointer-events:none;opacity:0;z-index:90';stage.appendChild(fl);
+window.render=async tn=>{pend.length=0;const t=toOld(tn);
  for(const s of SC){const on=t>=s.t0&&t<s.t1;s.el.style.display=on?'block':'none';if(on)s.up(s.el,t-s.t0)}
  const g=GR.find(g=>t>=g.w[0][0]&&t<g.t1);
- if(g){const key=g.w[0][0];if(cap.dataset.k!=key){cap.dataset.k=key;cap.innerHTML=g.w.map(w=>`<span class="${w[2]?'k':''}">${limpio(w[1])}</span>`).join('')}
+ if(g){const key=g.w[0][0];if(cap.dataset.k!=key){cap.dataset.k=key;cap.innerHTML=g.w.map(w=>`<span class="${w[2]?'k':''}">${limpio(w[1])}</span>`).join('');cap.style.transform='';const sc2=Math.min(1,(cap.clientWidth)/cap.scrollWidth);cap.style.transform=`scale(${sc2})`}
   const out=1-seg(t,g.t1-.1,g.t1);
   const juntas=GR.indexOf(g)%2==1; /* alterna: de a una palabra / las 3 juntas */
   cap.querySelectorAll('span').forEach((s,i)=>{const t0=juntas?g.w[0][0]:g.w[i][0];const k=seg(t,t0,t0+(juntas?.28:.22)),e=eo(k);s.style.opacity=e*out;s.style.transform=`translateY(${(1-e)*14}px)`})}
  else{cap.innerHTML='';cap.dataset.k=''}
+ /* ritmo frenético: golpe de cámara en cada grupo de subtítulos y flash en cada corte */
+ let gs=-9;for(const gg of GR){const s0=toNew(gg.w[0][0]);if(s0<=tn)gs=s0}
+ const dtc=Math.min(...CUTN.filter(c=>c>0&&c<=tn).map(c=>tn-c),9);
+ const punch=Math.exp(-(tn-gs)/.12)*.035+Math.exp(-dtc/.1)*.07;
+ stage.style.transform=`scale(${1+punch}) rotate(${Math.exp(-dtc/.1)*1.2*(Math.floor(tn)%2?1:-1)}deg)`;
+ fl.style.opacity=Math.exp(-dtc/.06)*.45;
  await Promise.all(pend);};
 window.render(0);
 }

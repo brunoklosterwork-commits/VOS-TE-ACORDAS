@@ -4,7 +4,7 @@ from playwright.async_api import async_playwright
 
 FPS = 30
 OUT = "render"
-CUTS = [0, 4.9, 9.9, 14.7, 21.55, 28.8, 35.85, 41]
+CUTS = [0.0, 3.882, 8.158, 12.266, 18.117, 24.034, 30.16, 34.2]
 
 async def main(only=None):
     os.makedirs(OUT, exist_ok=True)

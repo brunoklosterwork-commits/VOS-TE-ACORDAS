@@ -86,12 +86,20 @@ Estándar desde el episodio 002 (código de referencia: `episodios/002-flappy-bi
   - **A (de a una):** cada palabra aparece cuando la dice la voz, sube 14 px con un fade corto (0,22 s, ease-out).
   - **B (juntas):** las 3 palabras suben al mismo tiempo cuando arranca el grupo (0,28 s).
   - El grupo sale con un fade de 0,1 s.
-- Fira Sans 700, 70 px, blanco, centrado a la altura y ≈ 1385 (dentro de la zona segura).
+- Fira Sans 700, **88 px**, blanco, centrado a la altura y ≈ 1370 (dentro de la zona segura); si un grupo no entra en el ancho, se achica solo.
 - **Palabras clave** (cifras, la palabra que cuenta la historia: *dólares*, *adicta*, *explotó*…) en **Fira Sans 900 itálica, verde Aero `#C6FF5E`**.
 - No llevan puntuación final, salvo "…" y signos de pregunta.
 - Donde el texto ya está en pantalla (un tuit, un chat), no se subtitula.
 
-## 9. Lo que no hacemos
+## 9. Ritmo
+
+Frenético desde el episodio 002 v4:
+- Pausas de la voz recortadas a ~0,1 s y voz acelerada ×1,1 (sin cambiar el tono). Solo se deja aire antes de un remate ("Y cumplió.") y del cierre.
+- Golpe de cámara (zoom ~3,5 % que vuelve en 0,12 s) cada vez que entra un grupo de subtítulos.
+- En cada corte de escena: flash blanco corto + zoom de 7 % + mini-giro, con un whoosh.
+- Videos de 30 a 40 segundos.
+
+## 10. Lo que no hacemos
 
 - No usamos el wallpaper "Bliss" original ni logos de Windows/Microsoft: la colina se recrea (la referencia de colores ya es una versión libre).
 - No redibujamos logos de marcas: el producto real aparece en fotos o archivo.
