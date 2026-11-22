@@ -1,14 +1,14 @@
 # Episodio 003 — ¿Por qué los colores de los 2000 se veían distintos?
 
-**Estado:** borrador v1 (Fase 1), para revisar antes de generar la voz
+**Estado:** v2: gancho A ("Antes veías otros colores. ¿Sabías?"), listo para generar la voz
 **Formato:** 9:16 · 1080×1920 · ~50–55 s · **100% animación** (no hay material de archivo)
-**Locución:** ~165 palabras, en segunda persona del singular (le hablamos a una sola persona)
+**Locución:** ~155 palabras, en segunda persona del singular (le hablamos a una sola persona)
 
 ---
 
 ## Locución
 
-> Es 2026, y hay algo que no te podés sacar de la cabeza: los colores de cuando eras chico eran otros. (…) Más vivos. Más cálidos.
+> Antes veías otros colores. ¿Sabías? (…) Más vivos. Más cálidos.
 >
 > Tiene nombre: **retrospección rosada**. Tu cerebro edita tus recuerdos y los guarda más lindos de lo que fueron… como si les subiera la saturación.
 >
@@ -44,7 +44,7 @@
 
 | Tiempo aprox. | Voz en off | Visual / Animación (XP · Vista · Aero) | SFX |
 |---|---|---|---|
-| 0:00–0:05 | Es 2026… los colores de cuando eras chico eran otros. Más vivos. Más cálidos. | **Living de los 2000 ilustrado** (tele de tubo, sillón, ventana) en tonos dorados. Un **reloj de bandeja de sistema** marca "2026" y la escena se **desatura** de golpe a gris/azulado. Con "más vivos, más cálidos", vuelve el color en un parpadeo. | **Sin música.** Zumbido CRT, tic de lamparita, clic. |
+| 0:00–0:04 | Antes veías otros colores. ¿Sabías? Más vivos. Más cálidos. | Arranca de golpe: **living de los 2000 ilustrado** (tele de tubo, sillón, ventana) en dorado. En "¿Sabías?" salta un diálogo XP **"¿Sabías que…?"** (estilo *Sugerencia del día*). Con "Más vivos. Más cálidos." la escena **late de color** dos veces. | **Sin música.** Zumbido CRT, tic de lamparita, clic. |
 | 0:05–0:12 | Tiene nombre: retrospección rosada… como si les subiera la saturación. | Ventana estilo XP **"Propiedades de Recuerdos"** con sliders **Saturación** y **Contraste** que el cursor sube solos. Un "recuerdo" (polaroid ilustrada) se vuelve cada vez más saturado. Chip glossy: **"Retrospección rosada"**. | Entra la música. Clics de slider. |
 | 0:12–0:15 | Pero esta vez no te está mintiendo del todo. | Diálogo XP: **"Advertencia: no todo fue editado por el cerebro."** [Aceptar]. | Ding de diálogo. |
 | 0:15–0:24 | Acordate de tu casa a la noche: lamparitas de filamento… brillar los rojos y los naranjas. Desde 2011 no se pueden vender más. | **Lamparita de filamento** gigante y glossy, filamento incandescente. Panel Vista **"Temperatura de color"** con un slider en **2700 K** y el living bañado en dorado. Gráfico de barras: **CRI 100**, con rojos y naranjas a full. Al final, sello sobre la lamparita: **"Ley 26.473 · 2011"** y se apaga. | Hum eléctrico cálido → clic de apagado. |
