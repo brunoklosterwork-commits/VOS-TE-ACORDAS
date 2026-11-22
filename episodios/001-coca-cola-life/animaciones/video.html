@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>vosteacordás? — 001 Coca-Cola Life</title>
+<style>
+/* Episodio 001 — Coca-Cola Life. Lienzo 1080x1920, 30 fps.
+   Todo se dibuja desde render(t): sin animaciones CSS, para poder grabar cuadro a cuadro.
+   Paleta y tipografía: estilo/tokens.css (fuentes locales: Fira Sans / Open Sans / DejaVu Sans). */
+:root{--cielo-profundo:#0e466b;--cielo:#1a82cc;--cielo-claro:#519bf5;--cielo-brillo:#8be3fe;--cian:#22adf8;--cian-glow:#4fcff5;
+--verde-colina:#80cd05;--verde-aero:#96d076;--verde-agua:#66c3af;--menta:#ccf4c8;--azul-barra:#2c5e95;
+--t:"Fira Sans",sans-serif;--ui:"Open Sans",sans-serif;--xp:"DejaVu Sans",Verdana,sans-serif}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:var(--t)}
+.sc{position:absolute;inset:0;display:none;overflow:hidden}
+.abs{position:absolute}
+.cielo{position:absolute;inset:0;background:linear-gradient(180deg,#3f8ef0 0%,var(--cielo) 38%,var(--cielo-brillo) 74%,#e9fbff 100%)}
+.paisaje{position:absolute;left:0;right:0;bottom:0;width:1080px;height:820px}
+.vista{position:absolute;inset:0;background:linear-gradient(150deg,#0b4a63 0%,#1f8fa8 30%,var(--verde-agua) 55%,#b9f0d8 72%,#167f99 100%)}
+.negro{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,#1b1d22 0%,#050506 75%)}
+.ruido{position:absolute;inset:-200px;pointer-events:none;mix-blend-mode:screen;opacity:.16}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 5px);pointer-events:none}
+.burbuja{position:absolute;border-radius:50%;
+ background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.95) 0 9%,rgba(255,255,255,.28) 23%,rgba(150,235,255,.14) 60%,rgba(255,255,255,.55) 100%);
+ box-shadow:inset 0 0 18px rgba(255,255,255,.65),0 0 10px rgba(255,255,255,.25)}
+/* texto glossy */
+.gl{background:linear-gradient(180deg,#fff 0%,#fff 46%,#dce9e0 54%,#c2d3c6 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 6px 10px rgba(0,40,60,.45));line-height:.95;text-align:center;white-space:nowrap}
+.gl.cromo{background-image:linear-gradient(180deg,#fff 0%,#f2f2f2 47%,#aeb9c1 53%,#eef2f5 100%)}
+/* XP */
+.xp{position:absolute;background:#ece9d8;border:2px solid #0831d9;border-radius:16px 16px 0 0;font-family:var(--xp);
+ box-shadow:0 26px 60px rgba(0,0,0,.55);overflow:hidden}
+.xp .tb{height:60px;display:flex;align-items:center;padding:0 10px 0 18px;color:#fff;font-weight:700;font-size:26px;text-shadow:2px 2px #0a246a;
+ background:linear-gradient(180deg,#0997ff 0%,#0053ee 12%,#0050ee 50%,#0066ff 88%,#0055e6 100%)}
+.xp .x{margin-left:auto;width:44px;height:44px;border:2px solid #fff;border-radius:6px;display:grid;place-items:center;font-size:28px;
+ background:linear-gradient(180deg,#e7835f,#d24120)}
+.xp .bd{display:flex;gap:28px;align-items:center;padding:36px 36px 22px;font-size:27px;color:#000;line-height:1.35}
+.xp .bt{display:flex;justify-content:center;gap:22px;padding:6px 0 30px}
+.xp button{font:26px var(--xp);min-width:200px;height:56px;border-radius:6px;border:2px solid #003c74;
+ background:linear-gradient(180deg,#fff,#ece9d8 85%,#d6d0c5);color:#000}
+.xp button.on{background:linear-gradient(180deg,#d6d0c5,#ece9d8 30%,#fff);box-shadow:inset 0 0 0 3px #f5c86a}
+.xp button.hov{box-shadow:inset 0 0 0 3px #f5c86a}
+/* Aero */
+.ae{position:absolute;border-radius:14px;padding:0 12px 12px;background:rgba(215,240,250,.40);backdrop-filter:blur(18px);
+ box-shadow:0 30px 70px rgba(0,30,60,.45),inset 0 0 0 2px rgba(255,255,255,.65);overflow:hidden}
+.ae:before{content:"";position:absolute;left:0;right:0;top:0;height:48px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.08))}
+.ae .tb{position:relative;height:58px;display:flex;align-items:center;gap:12px;font:600 24px var(--ui);color:#0c2236;padding-left:6px}
+.ae .bs{margin-left:auto;display:flex;gap:4px}
+.ae .bs i{width:50px;height:32px;border-radius:6px;border:2px solid rgba(40,60,80,.45);background:linear-gradient(180deg,#f4f9fc,#c9dbe6 50%,#b3cbd9 51%,#dde9f0)}
+.ae .bs i:last-child{width:82px;background:linear-gradient(180deg,#f3b9a6,#d9534a 50%,#c43b2f 51%,#e2806d);border-color:#7a1f15}
+.ae .in{position:relative;background:#fff;border:2px solid #9fb3c3}
+.tv{position:relative;width:100%;aspect-ratio:4/3;background:#000;overflow:hidden}
+.tv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tv:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 2px,transparent 2px 5px)}
+.ctl{display:flex;align-items:center;justify-content:center;gap:26px;height:104px;background:linear-gradient(180deg,#eef5fa,#cfe0eb)}
+.ctl .c{width:48px;height:48px;border-radius:50%;background:linear-gradient(180deg,#fff,#bcd2e0);border:2px solid #8fa9bb}
+.play{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;border:4px solid #fff;
+ background:radial-gradient(circle at 50% 30%,#bff3ff 0,var(--cian) 45%,#0a4f8a 100%);box-shadow:0 0 26px var(--cian-glow)}
+.play:after{content:"";border-left:26px solid #fff;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:8px}
+.prog{position:absolute;left:18px;right:18px;top:-14px;height:12px;border-radius:6px;background:#b8cddb;overflow:hidden}
+.prog b{display:block;height:100%;background:linear-gradient(180deg,#9ff,var(--cian) 50%,#0a6fb5)}
+.chip{position:absolute;padding:14px 34px;border-radius:40px;background:rgba(255,255,255,.28);backdrop-filter:blur(12px);
+ box-shadow:inset 0 0 0 2px rgba(255,255,255,.7),0 12px 30px rgba(0,30,60,.3);font:800 44px var(--t);color:#fff;text-shadow:0 2px 6px rgba(0,40,80,.5);white-space:nowrap}
+.chip:before{content:"";position:absolute;inset:0 0 50% 0;border-radius:40px 40px 0 0;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.05))}
+.foto{position:absolute;background:#fff;padding:14px 14px 50px;box-shadow:0 24px 50px rgba(0,20,50,.45)}
+.foto img{display:block;width:100%;height:100%;object-fit:cover}
+.tip{position:absolute;padding:12px 24px;border-radius:12px;font:700 32px var(--ui);color:#0c2a44;white-space:nowrap;
+ background:linear-gradient(180deg,#fff,#e4f1f9);border:2px solid #7fa7c4;box-shadow:0 10px 24px rgba(0,30,60,.35)}
+.bar{position:relative;height:76px;border-radius:38px;background:rgba(255,255,255,.35);box-shadow:inset 0 2px 6px rgba(0,30,60,.25);overflow:hidden}
+.bar b{position:absolute;left:0;top:0;bottom:0;border-radius:38px}
+.bar b:after{content:"";position:absolute;left:12px;right:12px;top:6px;height:42%;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.8),rgba(255,255,255,.1))}
+.bl{display:flex;justify-content:space-between;font:800 40px var(--t);color:#fff;text-shadow:0 2px 6px rgba(0,40,80,.5);margin:0 10px 10px}
+#cap{position:absolute;left:60px;right:150px;top:1395px;text-align:center;font:800 52px/1.18 var(--t);color:#fff;
+ text-shadow:0 3px 0 rgba(0,25,45,.55),0 0 22px rgba(0,25,45,.6);text-wrap:balance}
+#cap span{display:inline;padding:6px 18px;border-radius:16px;background:rgba(5,30,55,.38);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.cursor{position:absolute;width:64px;height:88px;z-index:50;filter:drop-shadow(3px 4px 2px rgba(0,0,0,.4))}
+</style></head>
+<body><div id="stage"></div><div id="capw"></div>
+<script>
+{
+const W=1080,H=1920,FPS=30;
+const stage=document.getElementById('stage');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const seg=(u,a,b)=>clamp((u-a)/(b-a));
+const lerp=(a,b,k)=>a+(b-a)*k;
+const eo=k=>1-Math.pow(1-k,3);
+const eio=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;
+const eb=k=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(k-1,3)+c1*Math.pow(k-1,2)};
+const rnd=s=>{let x=Math.sin(s*9301+49297)*233280;return x-Math.floor(x)};
+const pend=[];
+const pad=n=>String(n).padStart(4,'0');
+
+/* ---------- piezas comunes ---------- */
+const noiseURL=(()=>{const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');const d=g.createImageData(256,256);
+ for(let i=0;i<d.data.length;i+=4){const v=rnd(i*.37)*255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255}g.putImageData(d,0,0);return c.toDataURL()})();
+const ruido=()=>`<div class="ruido" style="background:url(${noiseURL});background-size:512px"></div><div class="scan"></div>`;
+const moverRuido=(sc,t)=>{const r=sc.querySelector('.ruido');if(r){const f=Math.floor(t*FPS);r.style.transform=`translate(${(rnd(f)*200)|0}px,${(rnd(f+7)*200)|0}px)`}};
+const paisaje=`<svg class="paisaje" viewBox="0 0 1080 820" preserveAspectRatio="none">
+ <defs><linearGradient id="co" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b4ec3a"/><stop offset=".4" stop-color="#80cd05"/><stop offset="1" stop-color="#3a8410"/></linearGradient>
+ <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8be3fe"/><stop offset=".45" stop-color="#1a82cc"/><stop offset="1" stop-color="#0e466b"/></linearGradient></defs>
+ <path d="M0 330 C 260 150, 640 120, 900 250 S 1080 320 1080 320 V820 H0Z" fill="url(#co)"/>
+ <path d="M0 520 C 200 470, 380 580, 600 520 S 900 470, 1080 540 V820 H0Z" fill="url(#ag)"/>
+ <path d="M0 600 C 230 560, 430 650, 660 600 S 950 580, 1080 620" stroke="#fff" stroke-width="10" fill="none" opacity=".7"/>
+ <path d="M0 690 C 260 650, 480 740, 720 690 S 980 680, 1080 710" stroke="#ccf4c8" stroke-width="7" fill="none" opacity=".55"/></svg>`;
+const flecha=`<svg class="cursor" viewBox="0 0 22 30"><path d="M1 1 V24 L7 18 L11 28 L15 26 L11 17 H19Z" fill="#fff" stroke="#000" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
+const mano=`<svg class="cursor" viewBox="0 0 25 30"><path d="M8 2 C8 .5 11 .5 11 2 V12 C11 10.5 14 10.5 14 12 V13 C14 11.5 17 11.5 17 13 V14 C17 12.5 20 12.5 20 14 V22 C20 26 17 29 13 29 H11 C8 29 6 27 4 24 L1 18 C0 16 2.5 14.5 4 16.5 L8 21Z" fill="#fff" stroke="#000" stroke-width="1.3" stroke-linejoin="round"/></svg>`;
+const icoWarn=`<svg width="78" height="78" viewBox="0 0 34 34" style="flex:none"><path d="M17 2 L33 31 H1Z" fill="#ffd200" stroke="#9a7400" stroke-width="1.5"/><rect x="15.5" y="11" width="3" height="11" fill="#222"/><rect x="15.5" y="24.5" width="3" height="3" fill="#222"/></svg>`;
+const icoErr=`<svg width="78" height="78" viewBox="0 0 34 34" style="flex:none"><circle cx="17" cy="17" r="15" fill="#e0301e" stroke="#8a1208" stroke-width="1.5"/><path d="M11 11 L23 23 M23 11 L11 23" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/></svg>`;
+const icoExe=`<svg width="78" height="78" viewBox="0 0 34 34" style="flex:none"><rect x="3" y="5" width="28" height="24" rx="2" fill="#fff" stroke="#1d4f91" stroke-width="1.5"/><rect x="3" y="5" width="28" height="6" fill="#2a6fd6"/><circle cx="17" cy="20" r="5" fill="#80cd05" stroke="#3a8410"/></svg>`;
+const xpWin=(id,x,y,w,title,icon,txt,btns)=>`<div class="xp" id="${id}" style="left:${x}px;top:${y}px;width:${w}px">
+ <div class="tb">${title}<span class="x">✕</span></div><div class="bd">${icon}<div>${txt}</div></div>
+ <div class="bt">${btns.map((b,i)=>`<button data-i="${i}">${b}</button>`).join('')}</div></div>`;
+const aeWin=(id,x,y,w,title,inner)=>`<div class="ae" id="${id}" style="left:${x}px;top:${y}px;width:${w}px">
+ <div class="tb">${title}<div class="bs"><i></i><i></i><i></i></div></div><div class="in">${inner}</div></div>`;
+const player=(id,x,y,w,title)=>aeWin(id,x,y,w,'▶&nbsp; '+title,`<div class="tv"><img class="seq"></div><div class="ctl" style="position:relative"><div class="prog"><b></b></div><span class="c"></span><span class="c"></span><span class="play"></span><span class="c"></span><span class="c"></span></div>`);
+const bubbles=(n,seed,size=[24,90])=>Array.from({length:n},(_,i)=>{const s=lerp(size[0],size[1],rnd(seed+i*3.1));return `<span class="burbuja" data-i="${i}" style="width:${s}px;height:${s}px"></span>`}).join('');
+const subir=(sc,t,seed,speed=120)=>sc.querySelectorAll('.burbuja.up').forEach((b,i)=>{const x=rnd(seed+i)*1080,y0=rnd(seed+i*7)*2400,sp=speed*(.6+rnd(seed+i*13));
+ const y=((y0-t*sp)%2400+2400)%2400-200;b.style.transform=`translate(${x+Math.sin(t*1.3+i)*18}px,${y}px)`});
+const seq=(img,name,u,n,hold=true)=>{let f=Math.floor(u*FPS)+1;if(f>n)f=hold?n:((f-1)%n)+1;if(f<1)f=1;const src=`ad/${name}/${pad(f)}.jpg`;
+ if(img.getAttribute('src')!==src){img.setAttribute('src',src);pend.push(img.decode().catch(()=>{}))}};
+const ponerCursor=(el,x,y,show=true)=>{el.style.display=show?'block':'none';el.style.left=x+'px';el.style.top=y+'px'};
+
+/* heladera de kiosco */
+const heladera=(id,x,y)=>{const filas=[['r','r','k','s','g'],['g','r','k','g','s'],['r','g','r','k','s']];const col={r:'#c8102e',k:'#1c1c1c',s:'#b9c3cc',g:'#6fae3c'};
+ let b='';filas.forEach((f,j)=>f.forEach((c,i)=>{const bx=70+i*104,by=150+j*250;
+  b+=`<g class="bot ${c}" transform="translate(${bx},${by})"><path d="M30 0 h22 v34 c0 10 22 22 22 44 v120 c0 10 -8 16 -16 16 h-34 c-8 0 -16 -6 -16 -16 v-120 c0 -22 22 -34 22 -44z" fill="#3a1a10" opacity=".92"/>
+  <rect x="8" y="104" width="66" height="44" fill="${col[c]}"/><rect x="8" y="104" width="66" height="10" fill="#fff" opacity=".35"/><rect x="30" y="-8" width="22" height="10" rx="3" fill="${col[c]}"/></g>`}));
+ return `<svg id="${id}" class="abs" style="left:${x}px;top:${y}px" width="700" height="980" viewBox="0 0 700 980">
+ <defs><linearGradient id="hm" x1="0" x2="1"><stop offset="0" stop-color="#e9eef2"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#c9d3db"/></linearGradient>
+ <linearGradient id="hv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dff6ff" stop-opacity=".35"/><stop offset=".5" stop-color="#bfe8ff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity=".3"/></linearGradient></defs>
+ <rect x="10" y="10" width="680" height="960" rx="34" fill="url(#hm)" stroke="#9fb0bd" stroke-width="4"/>
+ <rect x="40" y="40" width="620" height="90" rx="16" fill="#c8102e"/><text x="350" y="100" text-anchor="middle" font-family="Fira Sans" font-weight="900" font-size="46" fill="#fff">BEBIDAS HELADAS</text>
+ <rect x="40" y="140" width="620" height="800" rx="18" fill="#eaf6fb"/>
+ ${[0,1,2].map(j=>`<rect x="48" y="${380+j*250}" width="604" height="12" fill="#b8c6d0"/>`).join('')}
+ ${b}<rect x="40" y="140" width="620" height="800" rx="18" fill="url(#hv)" stroke="#8fb3c8" stroke-width="6"/>
+ <path d="M90 160 L250 160 L120 920 L60 920Z" fill="#fff" opacity=".16"/></svg>`};
+
+/* ---------- escenas ---------- */
+const SC=[];
+const def=(t0,t1,html,up)=>{const d=document.createElement('div');d.className='sc';d.innerHTML=html;stage.appendChild(d);SC.push({t0,t1,el:d,up})};
+const $=(sc,s)=>sc.querySelector(s);
+
+// 1 · 0–3  Experimento
+def(0,3,`<div class="negro"></div>${xpWin('w1',90,560,900,'Experimento_ARG_2013.exe',icoExe,'¿Desea ejecutar este programa?<br><span style="font-size:23px;color:#444">Destino: <b>Argentina</b> · Tipo: prueba de producto</span>',['Ejecutar','Cancelar'])}
+ <div class="abs" id="pb" style="left:150px;top:1010px;width:780px;height:46px;border:2px solid #7a7a7a;background:#fff;padding:4px;display:flex;gap:5px;opacity:0"></div>
+ ${flecha}${mano}${ruido()}`,(sc,u)=>{
+ const w=$(sc,'#w1'),k=eb(seg(u,0,.45));w.style.transform=`scale(${lerp(.6,1,k)})`;w.style.opacity=seg(u,0,.15);
+ const sh=u>2.35?Math.sin(u*90)*6*(1-seg(u,2.35,3)):0;w.style.marginLeft=sh+'px';
+ const [cf,cm]=sc.querySelectorAll('.cursor');const p=eio(seg(u,.5,1.75));const x=lerp(820,360,p),y=lerp(1420,860,p);
+ ponerCursor(cf,x,y,u<1.6);ponerCursor(cm,x-14,y,u>=1.6);
+ const b=w.querySelector('button');b.className=u>2.05&&u<2.3?'on':(u>=1.6?'hov':'');
+ const pb=$(sc,'#pb');pb.style.opacity=seg(u,2.3,2.4);const n=Math.floor(seg(u,2.35,2.95)*18);
+ if(pb.dataset.n!=n){pb.dataset.n=n;pb.innerHTML=Array.from({length:n},()=>'<i style="width:38px;background:linear-gradient(180deg,#bdf4a6,#3fbf2f 50%,#2a9c1f);border-radius:2px"></i>').join('')}
+ moverRuido(sc,u)});
+
+// 2 · 3–6  ¿Te acordás? revelación
+def(3,6,`<div class="cielo"></div>${paisaje}<div class="bb">${bubbles(34,11,[30,120])}</div>
+ <div class="abs" id="tt" style="left:0;right:0;top:300px">
+  <div class="gl" style="font-weight:800;font-size:104px">LA COCA</div>
+  <div class="gl" style="font-weight:300;font-size:150px;margin-top:-6px">verde</div></div>
+ <img id="bot" class="abs" src="assets/botella.png" style="left:390px;top:660px;width:300px;filter:drop-shadow(0 30px 30px rgba(0,30,60,.45))">
+ <div class="abs" id="sh" style="left:390px;top:660px;width:300px;height:835px;overflow:hidden;opacity:.0;mix-blend-mode:screen;-webkit-mask-image:url(assets/botella.png);-webkit-mask-size:300px auto;-webkit-mask-repeat:no-repeat"><div style="position:absolute;top:0;bottom:0;width:90px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent)"></div></div>
+ <div class="abs" id="fl" style="inset:0;background:#fff"></div>`,(sc,u)=>{
+ $(sc,'#fl').style.opacity=1-seg(u,0,.35);
+ sc.querySelectorAll('.burbuja').forEach((b,i)=>{const a=rnd(i*5.3)*6.283,r=eo(seg(u,0,1.6))*lerp(250,900,rnd(i*2.1));
+  const x=540+Math.cos(a)*r-40,y=760+Math.sin(a)*r*1.1-u*90;b.style.transform=`translate(${x}px,${y}px) scale(${lerp(.3,1,seg(u,0,.5))})`;b.style.opacity=1-seg(u,1.8,3)*.6});
+ const k=eo(seg(u,.25,1.25));const bt=$(sc,'#bot');bt.style.transform=`translateY(${lerp(300,0,k)}px) scale(${lerp(.7,1,k)})`;bt.style.opacity=seg(u,.25,.6);
+ const tt=$(sc,'#tt');tt.style.opacity=seg(u,.7,1.2);tt.style.transform=`translateY(${lerp(40,0,eo(seg(u,.7,1.4)))}px) scale(${1+u*.015})`;
+ const sh=$(sc,'#sh');sh.style.opacity=seg(u,1.6,1.7)*(1-seg(u,2.4,2.5));sh.firstChild.style.left=lerp(-100,320,seg(u,1.6,2.4))+'px';});
+
+// 3 · 6–10  Lanzamiento en Argentina
+def(6,10,`<div class="cielo" style="background:linear-gradient(180deg,#0e466b 0%,#1a82cc 55%,#8be3fe 100%)"></div><div class="bb">${bubbles(16,21).replace(/burbuja/g,'burbuja up')}</div>
+ <div class="chip" id="ch" style="left:50%;top:280px">26 · 06 · 2013</div>
+ ${player('pl',90,420,900,'CocaColaLife_comercial_2013.wmv')}
+ <div class="chip" id="ch2" style="left:50%;top:1250px;font-size:38px">📍 ARGENTINA · antes que nadie</div>`,(sc,u)=>{
+ subir(sc,u+6,21,70);
+ const p=$(sc,'#pl');p.style.transform=`translateY(${lerp(120,0,eo(seg(u,0,.6)))}px)`;p.style.opacity=seg(u,0,.3);
+ seq(p.querySelector('img'),'A',u,121);p.querySelector('.prog b').style.width=(20+u*12)+'%';
+ const c=$(sc,'#ch');c.style.opacity=seg(u,.4,.8);c.style.transform=`translateX(-50%) scale(${lerp(.8,1,eb(seg(u,.4,.9)))})`;
+ const c2=$(sc,'#ch2');c2.style.opacity=seg(u,1.4,1.8);c2.style.transform=`translateX(-50%) translateY(${lerp(30,0,eo(seg(u,1.4,2)))}px)`});
+
+// 4 · 10–14  El laboratorio perfecto
+const paises=[['🇦🇷 Argentina',131,'linear-gradient(180deg,#c9f56a,#80cd05 50%,#4f9a12)'],['Chile',121,'linear-gradient(180deg,#9fe0ff,#22adf8 50%,#0a6fb5)'],['México',119,'linear-gradient(180deg,#9fe0ff,#22adf8 50%,#0a6fb5)'],['EE.UU.',112,'linear-gradient(180deg,#9fe0ff,#22adf8 50%,#0a6fb5)']];
+def(10,14,`<div class="vista"></div><div class="bb">${bubbles(14,31).replace(/burbuja/g,'burbuja up')}</div>
+ <div class="abs" id="tt" style="left:0;right:0;top:270px"><div class="gl" style="font-weight:800;font-size:92px">EL LABORATORIO</div><div class="gl cromo" style="font-weight:900;font-size:120px">PERFECTO</div></div>
+ ${aeWin('ch',70,560,940,'Consumo de gaseosas · litros por persona (2012)',`<div style="padding:40px 34px 30px;background:linear-gradient(180deg,#1b6f93,#2aa5b8)">
+  ${paises.map((p,i)=>`<div style="margin-bottom:30px"><div class="bl"><span>${p[0]}</span><span class="n" data-v="${p[1]}">0 L</span></div><div class="bar"><b data-i="${i}" style="background:${p[2]};width:0"></b></div></div>`).join('')}
+  <div style="font:600 22px var(--ui);color:#dff4ff;text-align:right">Fuente: Euromonitor International</div></div>`)}
+ <div class="bb2">${bubbles(10,41,[16,40])}</div>`,(sc,u)=>{
+ subir(sc,u,31,90);const w=$(sc,'#ch');w.style.opacity=seg(u,0,.3);w.style.transform=`scale(${lerp(.92,1,eo(seg(u,0,.5)))})`;
+ sc.querySelectorAll('.bar b').forEach((b,i)=>{const k=eo(seg(u,.3+i*.18,1.4+i*.18));b.style.width=(k*paises[i][1]/131*100)+'%';
+  const n=b.parentNode.previousElementSibling.querySelector('.n');n.textContent=Math.round(k*paises[i][1])+' L'});
+ sc.querySelectorAll('.bb2 .burbuja').forEach((b,i)=>{const k=seg(u,1.6+i*.12,3.2+i*.12);b.style.opacity=k>0&&k<1?1-k:0;
+  b.style.transform=`translate(${180+rnd(i)*560}px,${745-k*260}px)`});
+ const tt=$(sc,'#tt');tt.style.opacity=seg(u,.2,.6);tt.children[1].style.opacity=seg(u,2.2,2.6);tt.children[1].style.transform=`scale(${lerp(1.3,1,eb(seg(u,2.2,2.8)))})`});
+
+// 5 · 14–18  Collage parallax: 3 millones de muestras
+def(14,18,`<div class="cielo"></div>${paisaje}<div class="bb">${bubbles(18,51).replace(/burbuja/g,'burbuja up')}</div>
+ <div class="abs" id="cam" style="inset:0">
+  <div class="foto ly" data-z=".25" style="left:40px;top:330px;width:560px;height:420px;transform:rotate(-6deg)"><img src="assets/cartel.jpg"></div>
+  <div class="foto ly" data-z=".5" style="left:600px;top:420px;width:400px;height:560px;transform:rotate(6deg)"><img src="assets/lata.jpg" style="object-position:50% 30%"></div>
+  <div class="foto ly" data-z=".65" style="left:70px;top:720px;width:400px;height:560px;transform:rotate(-4deg)"><img src="assets/botella_600.jpg" style="object-position:50% 40%"></div>
+  <img class="abs ly" data-z="1" src="assets/stevia.png" style="left:560px;top:880px;width:520px;filter:drop-shadow(0 20px 24px rgba(0,30,40,.45))">
+  <img class="abs ly" data-z=".85" src="assets/botella.png" style="left:410px;top:560px;width:250px;filter:drop-shadow(0 26px 26px rgba(0,30,60,.5))">
+ </div>
+ <div class="chip" id="cnt" style="left:50%;top:250px;text-align:center;padding:16px 50px"><div style="font-size:30px;font-weight:600;letter-spacing:.04em">MUESTRAS GRATIS</div><div class="n" style="font-size:84px;font-weight:900;line-height:1">0</div></div>
+ <div class="tip" id="t1" style="left:120px;top:1150px">Etiqueta verde</div>
+ <div class="tip" id="t2" style="left:600px;top:840px">Una hojita</div>
+ <div class="tip" id="t3" style="left:690px;top:1260px">Stevia</div>`,(sc,u)=>{
+ subir(sc,u,51,80);
+ const z=1+u*.03;sc.querySelectorAll('.ly').forEach((l,i)=>{const d=+l.dataset.z;const k=eo(seg(u,.05*i,.7+.08*i));
+  const base=l.style.transform.replace(/translate.*$/,'');l.style.translate=`${(u-2)*-26*d}px ${lerp(160,0,k)*d+(u-2)*-14*d}px`;l.style.scale=String(lerp(.85,1,k)*(1+(z-1)*d*2));l.style.opacity=seg(u,.05*i,.35+.05*i)});
+ const c=$(sc,'#cnt');c.style.transform='translateX(-50%)';c.style.opacity=seg(u,0,.3);
+ c.querySelector('.n').textContent=Math.round(eo(seg(u,.1,1.5))*3000000).toLocaleString('es-AR');
+ [['#t1',1.75],['#t2',2.35],['#t3',2.95]].forEach(([s,a])=>{const e=$(sc,s);e.style.opacity=seg(u,a,a+.15);e.style.transform=`scale(${lerp(.6,1,eb(seg(u,a,a+.35)))})`})});
+
+// 6 · 18–21  Natural. Sana.
+def(18,21,`<div class="cielo"></div>${paisaje}<div class="bb">${bubbles(14,61).replace(/burbuja/g,'burbuja up')}</div>
+ <div class="gl abs" id="w1" style="left:0;right:0;top:280px;font-weight:800;font-size:130px">NATURAL</div>
+ ${player('pl',160,430,760,'vida_natural.wmv')}
+ <div class="gl cromo abs" id="w2" style="left:0;right:0;top:1195px;font-weight:900;font-size:150px">SANA</div>`,(sc,u)=>{
+ subir(sc,u,61,80);const p=$(sc,'#pl');seq(p.querySelector('img'),'NAT',u,91);p.querySelector('.prog b').style.width=(30+u*10)+'%';
+ p.style.opacity=seg(u,0,.25);
+ [['#w1',.95],['#w2',2.0]].forEach(([s,a])=>{const e=$(sc,s);e.style.opacity=seg(u,a,a+.25);e.style.transform=`scale(${lerp(1.25,1,eb(seg(u,a,a+.5)))}) translateY(${Math.sin(u*2+a)*6}px)`})});
+
+// 7 · 21–24  stevia.dll contiene azúcar
+def(21,24,`<div class="vista" style="filter:saturate(.7)"></div>
+ ${player('pl',90,330,900,'CocaColaLife_comercial_2013.wmv')}
+ ${xpWin('er',110,700,860,'Advertencia del sistema',icoWarn,'El archivo <b>stevia.dll</b> contiene <b>azúcar</b>.<br><span style="font-size:23px;color:#444">No es 100% stevia.</span>',['Aceptar'])}${ruido()}`,(sc,u)=>{
+ const p=$(sc,'#pl');const img=p.querySelector('img');seq(img,'B',Math.min(u,1.75),90);
+ img.style.filter=u>1.75?'grayscale(.7) contrast(1.1)':'';p.querySelector('.prog b').style.width=(50+Math.min(u,1.75)*8)+'%';
+ const e=$(sc,'#er');e.style.opacity=seg(u,1.75,1.8);e.style.transform=`scale(${lerp(.5,1,eb(seg(u,1.75,2.15)))})`;
+ const sh=u>1.75&&u<2.3?Math.sin(u*120)*8:0;p.style.marginLeft=sh+'px';
+ const r=sc.querySelector('.ruido');r.style.opacity=u>1.7&&u<1.95?.5:.1;moverRuido(sc,u)});
+
+// 8 · 24–28  36 calorías
+const kc=[['Coca común',1,'linear-gradient(180deg,#ffb3a8,#d9342b 50%,#a3160f)','más'],['Coca-Cola Life',.45,'linear-gradient(180deg,#c9f56a,#80cd05 50%,#4f9a12)','36 kcal'],['Coca Zero',0,'linear-gradient(180deg,#888,#333 50%,#111)','0 kcal']];
+def(24,28,`<div class="vista"></div><div class="bb">${bubbles(10,71).replace(/burbuja/g,'burbuja up')}</div>
+ ${player('pl',260,250,560,'CocaColaLife_comercial_2013.wmv')}
+ <div class="ae" id="kp" style="left:70px;top:860px;width:940px;padding:0 12px 12px"><div class="tb">Calorías por vaso (200 ml)<div class="bs"><i></i><i></i><i></i></div></div>
+ <div class="in" style="padding:30px 30px 10px;background:linear-gradient(180deg,#1b6f93,#2aa5b8)">
+ ${kc.map((k,i)=>`<div style="margin-bottom:22px"><div class="bl"><span>${k[0]}</span><span class="v">${k[3]}</span></div><div class="bar" style="height:58px"><b style="background:${k[2]};width:0"></b></div></div>`).join('')}</div></div>`,(sc,u)=>{
+ subir(sc,u,71,80);const p=$(sc,'#pl');seq(p.querySelector('img'),'C',u,67);p.style.opacity=seg(u,0,.2);p.querySelector('.prog b').style.width=(62+u*5)+'%';
+ const kp=$(sc,'#kp');kp.style.opacity=seg(u,.5,.8);kp.style.transform=`translateY(${lerp(80,0,eo(seg(u,.5,1)))}px)`;
+ sc.querySelectorAll('#kp .bar b').forEach((b,i)=>{const k=eo(seg(u,.9+i*.45,1.9+i*.45));b.style.width=(k*kc[i][1]*100)+'%'});
+ sc.querySelectorAll('#kp .v').forEach((v,i)=>v.style.opacity=seg(u,1.6+i*.45,1.9+i*.45))});
+
+// 9 · 28–31  ¿Es light, no?
+def(28,31,`<div class="cielo" style="background:linear-gradient(180deg,#f3ead8,#d9cbb3)"></div>
+ <div class="abs" style="left:0;right:0;top:1180px;height:740px;background:linear-gradient(180deg,#b08d64,#7a5a3a)"></div>
+ ${heladera('hl',190,250)}
+ <div class="abs" id="msn" style="left:470px;top:860px;width:560px">
+  <div style="display:flex;gap:16px;align-items:flex-start"><div style="flex:none;width:96px;height:96px;border-radius:16px;background:linear-gradient(135deg,#7fd3ff,#2a8fd8);border:4px solid #fff;box-shadow:0 8px 18px rgba(0,0,0,.3);display:grid;place-items:center;font-size:54px">🙂</div>
+  <div style="background:linear-gradient(180deg,#fff,#e6f2fa);border:2px solid #8fb3cc;border-radius:22px;padding:20px 28px;font:700 40px var(--ui);color:#173a57;box-shadow:0 14px 30px rgba(0,0,0,.3)">¿Es light, no?<div style="font:500 22px var(--ui);color:#5d7a90;margin-top:6px">por el color 🍃</div></div></div></div>`,(sc,u)=>{
+ const h=$(sc,'#hl');h.style.transform=`scale(${1+u*.02})`;
+ sc.querySelectorAll('.bot.g').forEach(b=>{const k=seg(u,.6,1.1);b.style.filter=`drop-shadow(0 0 ${k*22}px #b6ff4a) brightness(${1+k*.25})`});
+ sc.querySelectorAll('.bot:not(.g)').forEach(b=>b.style.opacity=1-seg(u,.6,1.1)*.55);
+ const m=$(sc,'#msn');m.style.opacity=seg(u,1.3,1.45);m.style.transform=`scale(${lerp(.6,1,eb(seg(u,1.3,1.7)))})`;m.style.transformOrigin='0 50%'});
+
+// 10 · 31–34  Greenwashing
+def(31,34,`<div class="negro"></div><svg class="abs" style="left:0;top:520px" width="1080" height="900" viewBox="0 0 1080 900">
+ <defs><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9f56a"/><stop offset=".5" stop-color="#5fb30a"/><stop offset="1" stop-color="#2e7a08"/></linearGradient>
+ <clipPath id="cp"><rect id="cr" x="0" y="0" width="1080" height="0"/></clipPath></defs>
+ <text x="540" y="220" text-anchor="middle" font-family="Fira Sans" font-weight="900" font-size="148" fill="#fff" letter-spacing="-2">GREEN</text>
+ <text x="540" y="380" text-anchor="middle" font-family="Fira Sans" font-weight="900" font-size="148" fill="#fff" letter-spacing="-2">WASHING</text>
+ <g clip-path="url(#cp)"><text x="540" y="220" text-anchor="middle" font-family="Fira Sans" font-weight="900" font-size="148" fill="url(#gp)" letter-spacing="-2">GREEN</text>
+ <text x="540" y="380" text-anchor="middle" font-family="Fira Sans" font-weight="900" font-size="148" fill="url(#gp)" letter-spacing="-2">WASHING</text></g>
+ <g id="dr">${Array.from({length:11},(_,i)=>`<rect x="${150+i*72+rnd(i)*20}" y="370" width="${14+rnd(i*3)*16}" height="0" rx="10" fill="url(#gp)"/>`).join('')}</g>
+ <text id="lv" x="540" y="560" text-anchor="middle" font-family="Fira Sans" font-weight="300" font-size="84" fill="#ccf4c8" opacity="0">lavado verde</text></svg>${ruido()}`,(sc,u)=>{
+ const k=eio(seg(u,.3,1.6));sc.querySelector('#cr').setAttribute('height',k*400);
+ sc.querySelectorAll('#dr rect').forEach((r,i)=>r.setAttribute('height',Math.max(0,eo(seg(u,1.1+rnd(i*5)*.6,2.8))*(60+rnd(i*9)*170))));
+ sc.querySelector('#lv').setAttribute('opacity',seg(u,1.4,1.9));moverRuido(sc,u)});
+
+// 11 · 34–38  Retrogusto metálico
+def(34,38,`<div class="vista" style="filter:saturate(.6) brightness(.8)"></div>
+ ${aeWin('pl',90,330,900,'▶&nbsp; CocaColaLife_comercial_2013.wmv',`<div class="tv"><img class="seq"><img class="seq r" style="mix-blend-mode:screen;opacity:.0"><img class="seq c" style="mix-blend-mode:screen;opacity:.0"></div>`)}
+ <div class="ae" id="ts" style="left:390px;top:1060px;width:620px"><div class="tb">Sabor<div class="bs"><i></i><i></i><i></i></div></div>
+ <div class="in" style="display:flex;gap:18px;align-items:center;padding:22px;font:700 34px var(--ui);color:#173a57">${icoWarn}<div>Retrogusto detectado:<br><span style="font-weight:400">¿metálico?</span></div></div></div>${ruido()}`,(sc,u)=>{
+ const imgs=sc.querySelectorAll('#pl img');imgs.forEach(i=>seq(i,'D',u*.55,82));
+ const g=(Math.sin(u*37)>.6?1:0)*seg(u,.9,1.2);imgs[1].style.opacity=g*.6;imgs[2].style.opacity=g*.6;
+ imgs[1].style.filter='sepia(1) saturate(6) hue-rotate(-50deg)';imgs[2].style.filter='sepia(1) saturate(6) hue-rotate(140deg)';
+ imgs[1].style.transform=`translateX(${g*14}px)`;imgs[2].style.transform=`translateX(${-g*14}px)`;
+ const t=$(sc,'#ts');t.style.opacity=seg(u,1.4,1.6);t.style.transform=`translateY(${lerp(60,0,eo(seg(u,1.4,1.9)))}px)`;
+ sc.querySelector('.ruido').style.opacity=.1+g*.3;moverRuido(sc,u)});
+
+// 12 · 38–42  Tierra de nadie: común vs Zero
+def(38,42,`<div class="abs" style="left:0;top:0;width:540px;height:1920px;background:linear-gradient(180deg,#e0251b,#a3110c)"></div>
+ <div class="abs" style="left:540px;top:0;width:540px;height:1920px;background:linear-gradient(180deg,#2a2a2a,#050505)"></div>
+ <div class="gl abs" style="left:0;width:540px;top:280px;font-weight:800;font-size:64px">LOS DE<br>LA COMÚN</div>
+ <div class="gl abs" style="left:540px;width:540px;top:280px;font-weight:800;font-size:64px">LOS DE<br>LA ZERO</div>
+ ${xpWin('a',40,620,470,'Opinión',icoErr,'Muy<br>rara.',['Cerrar'])}${xpWin('b',570,620,470,'Opinión',icoErr,'Tiene<br>calorías.',['Cerrar'])}
+ <img class="abs" id="bt" src="assets/botella.png" style="left:470px;top:980px;width:140px;filter:drop-shadow(0 20px 20px rgba(0,0,0,.5))">
+ ${flecha}${mano}`,(sc,u)=>{
+ const A=$(sc,'#a'),B=$(sc,'#b');A.querySelector('.bd').style.fontSize='34px';B.querySelector('.bd').style.fontSize='34px';
+ const show=(e,a,c)=>{e.style.opacity=seg(u,a,a+.1)*(1-seg(u,c,c+.25));e.style.transform=`scale(${lerp(.6,1,eb(seg(u,a,a+.35)))*lerp(1,.4,seg(u,c,c+.25))})`};
+ show(A,.1,1.55);show(B,1.9,3.35);
+ const [cf,cm]=sc.querySelectorAll('.cursor');let x,y;
+ if(u<1.6){const p=eio(seg(u,.5,1.3));x=lerp(300,170,p);y=lerp(1250,875,p)}else{const p=eio(seg(u,2.3,3.1));x=lerp(170,700,p);y=lerp(875,875,p)}
+ ponerCursor(cm,x,y,true);ponerCursor(cf,0,0,false);
+ const b=$(sc,'#bt');b.style.transform=`translateY(${Math.sin(u*2)*10}px) rotate(${Math.sin(u*1.5)*4}deg)`});
+
+// 13 · 42–45  No se encontraron usuarios
+def(42,45,`<div class="vista" id="bg"></div>
+ ${aeWin('ex',90,300,900,'Buscar',`<div style="padding:26px 30px;font:400 30px var(--ui);color:#173a57">
+  <div style="border:2px solid #9fb3c3;border-radius:8px;padding:14px 20px;background:#f7fbfe">🔎&nbsp; compradores de Coca-Cola Life</div>
+  <div style="height:300px;display:grid;place-items:center;color:#5d7a90;font-size:34px" id="msg">No se encontraron elementos.</div></div>`)}
+ <img class="abs" id="bt" src="assets/botella.png" style="left:450px;top:900px;width:180px;filter:drop-shadow(0 26px 24px rgba(0,30,60,.5))">`,(sc,u)=>{
+ $(sc,'#bg').style.filter=`saturate(${1-seg(u,0,3)*.7}) brightness(${1-seg(u,0,3)*.25})`;
+ const e=$(sc,'#ex');e.style.opacity=seg(u,0,.25);$(sc,'#msg').style.opacity=seg(u,.7,1);
+ const b=$(sc,'#bt');b.style.transform=`scale(${lerp(1,.55,eio(seg(u,.5,3)))})`;b.style.opacity=1-seg(u,2.4,3)*.4});
+
+// 14 · 45–49  Ya no estaba en la heladera
+def(45,49,`<div class="cielo" style="background:linear-gradient(180deg,#e7e2d8,#c9bfae)"></div>
+ <div class="abs" style="left:0;right:0;top:1180px;height:740px;background:linear-gradient(180deg,#9c8a72,#6b5a46)"></div>
+ <div class="foto" id="ct" style="left:520px;top:300px;width:520px;height:390px;transform:rotate(5deg)"><img src="assets/cartel.jpg"></div>
+ ${heladera('hl',150,380)}
+ <div class="ae" id="ld" style="left:110px;top:1100px;width:860px"><div class="tb">Cargando Coca-Cola Life…<div class="bs"><i></i><i></i><i></i></div></div>
+ <div class="in" style="padding:24px 28px;font:600 30px var(--ui);color:#173a57"><div style="height:40px;border:2px solid #8fa9bb;border-radius:6px;overflow:hidden;background:#eef3f6"><b id="lb" style="display:block;height:100%;background:linear-gradient(180deg,#c9f56a,#4fc11a 50%,#2f8f0d)"></b></div>
+ <div style="margin-top:12px;display:flex;justify-content:space-between"><span>Buscando en kioscos…</span><span id="pc">0%</span></div></div></div>${ruido()}`,(sc,u)=>{
+ const h=$(sc,'#hl');h.style.transform=`translateX(${-u*10}px) scale(${1+u*.015})`;
+ sc.querySelectorAll('.bot.g').forEach((b,i)=>b.style.opacity=1-seg(u,.6+i*.35,1.2+i*.35));
+ const c=$(sc,'#ct');c.style.translate=`${-u*22}px ${u*6}px`;c.style.opacity=seg(u,0,.4)*.95;
+ const p=Math.min(99,Math.round(eo(seg(u,.3,1.8))*99));$(sc,'#lb').style.width=p+'%';$(sc,'#pc').textContent=p+'%';
+ const l=$(sc,'#ld');l.style.opacity=seg(u,.2,.4)*(1-seg(u,3.3,3.6));l.style.transform=`scale(${lerp(1,.9,seg(u,3.3,3.6))})`;
+ sc.querySelector('.ruido').style.opacity=.08+seg(u,3,4)*.15;moverRuido(sc,u)});
+
+// 15 · 49–52  Se cerró inesperadamente
+def(49,52,`<div class="negro"></div>${xpWin('w',70,620,940,'Coca-Cola Life',icoErr,'Coca-Cola Life ha detectado un problema y debe cerrarse.<br><span style="font-size:23px;color:#444">Sentimos las molestias. No hubo despedida oficial.</span>',['Enviar informe','No enviar'])}
+ <div class="abs" id="fd" style="inset:0;background:#000"></div>${ruido()}`,(sc,u)=>{
+ const w=$(sc,'#w');w.style.opacity=seg(u,.1,.15);w.style.transform=`scale(${lerp(.7,1,eb(seg(u,.1,.45)))})`;
+ $(sc,'#fd').style.opacity=seg(u,2.2,2.95);moverRuido(sc,u)});
+
+// 16 · 52–57  Y vos… ¿te acordás?
+def(52,57,`<div class="cielo"></div>${paisaje}<div class="bb">${bubbles(22,81).replace(/burbuja/g,'burbuja up')}</div>
+ <img class="abs" id="bt" src="assets/botella.png" style="left:420px;top:280px;width:240px;filter:drop-shadow(0 26px 26px rgba(0,30,60,.5))">
+ ${aeWin('ch',80,980,920,'vosteacordás? — Conversación',`<div style="padding:24px 28px;font:400 34px/1.35 var(--ui);color:#173a57;background:linear-gradient(180deg,#fff,#eef7fc)">
+  <div style="font:600 26px var(--ui);color:#5d7a90">vosteacordás? dice:</div>
+  <div id="m1" style="font-weight:700">Y vos… ¿te acordás de la Coca verde?</div>
+  <div id="m2" style="font-weight:700;margin-top:6px">¿La llegaste a probar? 🍃</div>
+  <div style="margin-top:22px;border:2px solid #9fb3c3;border-radius:10px;padding:16px 20px;background:#fff;color:#8aa0b0;font-size:30px">Contalo en los comentarios<span id="cu" style="color:#173a57">|</span></div></div>`)}
+ <div class="gl abs" id="hd" style="left:0;right:0;top:1450px;font-weight:800;font-size:56px;opacity:0">@vosteacordas</div>`,(sc,u)=>{
+ subir(sc,u,81,90);const b=$(sc,'#bt');b.style.opacity=seg(u,0,.4);b.style.transform=`translateY(${Math.sin(u*1.6)*14}px) scale(${lerp(.85,1,eo(seg(u,0,.8)))})`;
+ const c=$(sc,'#ch');c.style.opacity=seg(u,.2,.5);c.style.transform=`translateY(${lerp(100,0,eo(seg(u,.2,.8)))}px)`;
+ const t1='Y vos… ¿te acordás de la Coca verde?',t2='¿La llegaste a probar? 🍃';
+ $(sc,'#m1').textContent=t1.slice(0,Math.round(seg(u,.6,1.9)*t1.length))||' ';
+ const a2=Array.from(t2);$(sc,'#m2').textContent=a2.slice(0,Math.round(seg(u,2.1,3)*a2.length)).join('')||'\u00a0';
+ $(sc,'#cu').style.opacity=Math.floor(u*2)%2?0:1;$(sc,'#hd').style.opacity=seg(u,3.3,3.8)});
+
+/* ---------- subtítulos (locución) ---------- */
+const CUES=[[0.05,3.0,'Coca-Cola usó a los argentinos para probar algo nuevo.'],[3.25,5.5,'¿Te acordás… de la Coca verde?'],
+ [5.6,10.15,'Junio de 2013. Antes que en ningún otro país, la lanzaron acá.'],[10.3,13.3,'Éramos el país que más gaseosa tomaba del planeta.'],[13.35,15.2,'El laboratorio perfecto.'],
+ [15.3,20.0,'Tres millones de muestras gratis. Etiqueta verde. Una hojita. Stevia.'],[20.15,22.9,'Todo te decía: natural. Sana.'],
+ [23.05,25.8,'Pero no era solo stevia. Tenía azúcar.'],[25.9,27.9,'Treinta y seis calorías por vaso.'],[27.95,31.1,'Menos que la común… pero lejos del cero de la Zero.'],
+ [31.2,34.55,'Y mucha gente la agarraba pensando que era light. Por el color.'],[34.7,36.95,'Greenwashing. Lavado verde.'],
+ [37.1,41.15,'Y el sabor… ese retrogusto raro, medio metálico.'],[41.25,43.1,'Para los de la común, era rara.'],[43.15,45.35,'Para los de la Zero, tenía calorías.'],
+ [45.45,46.85,'Quedó en tierra de nadie.'],[46.95,49.75,'Y un día… ya no estaba en la heladera del kiosco.'],[49.85,51.0,'Sin despedida.']];
+/* cortes del guion (tiempo "viejo") → cortes según la voz real de Malena */
+const CUT_OLD=[0,3,6,10,14,18,21,24,28,31,34,38,42,45,49,52,57];
+const CUT_NEW=[0,3.15,5.55,10.25,15.25,20.1,23.0,25.85,31.15,34.65,37.05,41.2,45.4,46.9,49.8,51.05,57];
+const warp=t=>{let i=0;while(i<CUT_NEW.length-2&&t>=CUT_NEW[i+1])i++;return CUT_OLD[i]+(t-CUT_NEW[i])/(CUT_NEW[i+1]-CUT_NEW[i])*(CUT_OLD[i+1]-CUT_OLD[i])};
+const cap=document.createElement('div');cap.id='cap';stage.appendChild(cap);
+
+window.DUR=57;
+window.render=async tn=>{pend.length=0;const t=warp(tn);
+ for(const s of SC){const on=t>=s.t0&&t<s.t1;s.el.style.display=on?'block':'none';if(on)s.up(s.el,t-s.t0)}
+ const c=CUES.find(c=>tn>=c[0]&&tn<c[1]);
+ if(c){const txt=`<span>${c[2]}</span>`;if(cap.dataset.k!=c[2]){cap.innerHTML=txt;cap.dataset.k=c[2]}cap.style.opacity=Math.min(seg(tn,c[0],c[0]+.15),1-seg(tn,c[1]-.12,c[1]))}else cap.style.opacity=0;
+ await Promise.all(pend);};
+window.render(0);
+}
+</script></body></html>
