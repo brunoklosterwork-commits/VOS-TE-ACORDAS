@@ -31,7 +31,7 @@
 
 | Tiempo | Voz en off | Visual / Archivo | Animación / UI | SFX |
 |---|---|---|---|---|
-| 0:00–0:03 | Coca-Cola usó a los argentinos para probar algo nuevo. | Fondo negro con grano VHS. | Pop-up estilo XP: **"Experimento_ARG_2013.exe — ¿Desea ejecutar este programa?"**. El cursor pixelado hace clic en "Ejecutar". | Clic de mouse + "ding" de diálogo. |
+| 0:00–0:03 | Coca-Cola usó a los argentinos para probar algo nuevo. | Bandera argentina ondeando a pantalla completa (dibujada, glossy). | 0:00 bandera · 0:00,8 el logo de Coca-Cola Life cae de golpe (placa verde glossy) · 0:01,1 sello rojo **"PRUEBA"** · 0:01,6 pop-up XP **"Experimento_ARG_2013.exe"**, clic en "Ejecutar". | Golpe de bajo + whoosh · impacto · sello · "ding" · clic. |
 | 0:03–0:06 | ¿Te acordás… de la Coca verde? | **Revelación:** la ventana se rompe en burbujas Aero y aparece la botella de Life al centro (foto de la carpeta). | Burbujas + destello especular sobre la botella. | Pop de burbujas + entra la música. |
 | 0:06–0:10 | Junio de 2013. Antes que en ningún otro país, la lanzaron acá. | **Archivo:** publicidad de lanzamiento en ventana estilo reproductor de medios 4:3. | Globo terráqueo glossy que gira y frena en Argentina; pin verde. Fecha "26/06/2013" en tipografía Aero. | Whoosh + arranque del reproductor. |
 | 0:10–0:14 | Éramos el país que más gaseosa tomaba del planeta. El laboratorio perfecto. | Mapa vectorial celeste Aero. | Gráfico de barras glossy estilo Vista: **ARG 131 L · CHI 121 L · MEX 119 L · EE.UU. 112 L** (litros por persona, 2012). La barra argentina crece y se convierte en un tubo de ensayo burbujeante. | Burbujas + "blip" de laboratorio. |

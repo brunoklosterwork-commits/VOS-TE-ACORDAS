@@ -63,8 +63,11 @@ for _ in range(2): air = np.convolve(air, np.ones(40)/40, mode='same')
 out += air * .012
 
 # --- efectos, alineados a la escaleta ---
-put(ding(), .15, .25); put(click(), 2.1, .9); put(whoosh(.5), 2.4, .15)
-put(static(.3), 2.9, .6)
+boom = lambda f=50, d=1.2: np.sin(2*np.pi*f*np.arange(int(d*SR))/SR*(1+.6*np.exp(-8*np.arange(int(d*SR))/SR)))*np.exp(-3.5*np.arange(int(d*SR))/SR)
+put(boom(45), 0.0, 1.0); put(whoosh(.6), 0.0, .25)
+put(boom(55, .9), .8, 1.2); put(noise(.25, 14, .5), .8, .5)
+put(boom(70, .5), 1.15, .7); put(noise(.12, 40, .3), 1.15, .6)
+put(ding(), 1.6, .3); put(click(), 2.4, 1.0); put(whoosh(.5), 2.7, .25)
 for i in range(10): put(bubble(500 + i * 60), 3.05 + i * .07, .25)
 put(whoosh(), 6.0, .2); put(click(), 6.6, .5)
 for i in range(6): put(bubble(700 + i * 40), 11.8 + i * .2, .2)

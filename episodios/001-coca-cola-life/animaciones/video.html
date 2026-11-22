@@ -138,17 +138,48 @@ const SC=[];
 const def=(t0,t1,html,up)=>{const d=document.createElement('div');d.className='sc';d.innerHTML=html;stage.appendChild(d);SC.push({t0,t1,el:d,up})};
 const $=(sc,s)=>sc.querySelector(s);
 
-// 1 · 0–3  Experimento
-def(0,3,`<div class="negro"></div>${xpWin('w1',90,560,900,'Experimento_ARG_2013.exe',icoExe,'¿Desea ejecutar este programa?<br><span style="font-size:23px;color:#444">Destino: <b>Argentina</b> · Tipo: prueba de producto</span>',['Ejecutar','Cancelar'])}
- <div class="abs" id="pb" style="left:150px;top:1010px;width:780px;height:46px;border:2px solid #7a7a7a;background:#fff;padding:4px;display:flex;gap:5px;opacity:0"></div>
- ${flecha}${mano}${ruido()}`,(sc,u)=>{
- const w=$(sc,'#w1'),k=eb(seg(u,0,.45));w.style.transform=`scale(${lerp(.6,1,k)})`;w.style.opacity=seg(u,0,.15);
- const sh=u>2.35?Math.sin(u*90)*6*(1-seg(u,2.35,3)):0;w.style.marginLeft=sh+'px';
- const [cf,cm]=sc.querySelectorAll('.cursor');const p=eio(seg(u,.5,1.75));const x=lerp(820,360,p),y=lerp(1420,860,p);
- ponerCursor(cf,x,y,u<1.6);ponerCursor(cm,x-14,y,u>=1.6);
- const b=w.querySelector('button');b.className=u>2.05&&u<2.3?'on':(u>=1.6?'hov':'');
- const pb=$(sc,'#pb');pb.style.opacity=seg(u,2.3,2.4);const n=Math.floor(seg(u,2.35,2.95)*18);
- if(pb.dataset.n!=n){pb.dataset.n=n;pb.innerHTML=Array.from({length:n},()=>'<i style="width:38px;background:linear-gradient(180deg,#bdf4a6,#3fbf2f 50%,#2a9c1f);border-radius:2px"></i>').join('')}
+// 1 · 0–3  Gancho: bandera + logo + PRUEBA + Experimento.exe
+const flagCv=(()=>{const c=document.createElement('canvas');c.width=1200;c.height=2100;const g=c.getContext('2d');
+ const ce='#74acdf';g.fillStyle=ce;g.fillRect(0,0,1200,700);g.fillStyle='#fff';g.fillRect(0,700,1200,700);g.fillStyle=ce;g.fillRect(0,1400,1200,700);
+ const cx=600,cy=1050;g.save();g.translate(cx,cy);
+ for(let i=0;i<32;i++){g.save();g.rotate(i*Math.PI/16);g.fillStyle='#f6b40e';g.strokeStyle='#85340a';g.lineWidth=3;
+  if(i%2==0){g.beginPath();g.moveTo(-18,0);g.lineTo(0,270);g.lineTo(18,0);g.closePath();g.fill();g.stroke()}
+  else{g.beginPath();g.moveTo(-14,0);for(let y=0;y<=250;y+=10)g.lineTo(Math.sin(y/22)*12-(1-y/250)*14*0,y);g.lineTo(0,250);for(let y=250;y>=0;y-=10)g.lineTo(Math.sin(y/22)*12+14*(1-y/250),y);g.closePath();g.fill();g.stroke()}
+  g.restore()}
+ g.beginPath();g.arc(0,0,120,0,7);g.fillStyle='#f6b40e';g.fill();g.lineWidth=5;g.strokeStyle='#85340a';g.stroke();
+ g.strokeStyle='#85340a';g.lineWidth=7;g.lineCap='round';
+ g.beginPath();g.arc(-42,-18,16,Math.PI*1.1,Math.PI*1.9);g.stroke();g.beginPath();g.arc(42,-18,16,Math.PI*1.1,Math.PI*1.9);g.stroke();
+ g.beginPath();g.arc(-42,-4,7,0,7);g.fillStyle='#85340a';g.fill();g.beginPath();g.arc(42,-4,7,0,7);g.fill();
+ g.beginPath();g.moveTo(0,-6);g.quadraticCurveTo(-10,30,6,36);g.stroke();g.beginPath();g.arc(0,52,26,Math.PI*.2,Math.PI*.8);g.stroke();
+ g.restore();return c})();
+def(0,3,`<canvas id="fl" width="1080" height="1920" class="abs" style="left:0;top:0"></canvas>
+ <div class="abs" style="inset:0;background:linear-gradient(115deg,rgba(255,255,255,.0) 30%,rgba(255,255,255,.35) 42%,rgba(255,255,255,0) 52%),radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(0,20,50,.45))"></div>
+ <div class="abs" id="lg" style="left:110px;top:330px;width:860px;height:500px;border-radius:60px;display:grid;place-items:center;
+  background:linear-gradient(180deg,#a7dc63 0%,#6fae3c 48%,#4f8f22 52%,#7cc046 100%);box-shadow:0 30px 60px rgba(0,30,10,.5),inset 0 0 0 5px rgba(255,255,255,.55);overflow:hidden">
+  <div class="abs" style="left:0;right:0;top:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.08))"></div>
+  <img src="assets/logo_blanco.png" style="position:relative;width:700px;filter:drop-shadow(0 4px 6px rgba(0,40,0,.45))"></div>
+ <div class="abs" id="st" style="left:520px;top:780px;padding:6px 34px;border:12px solid #d4141c;border-radius:20px;color:#d4141c;
+  font:900 120px/1 var(--t);letter-spacing:.04em;background:rgba(255,255,255,.12);transform-origin:50% 50%;mix-blend-mode:multiply">PRUEBA</div>
+ ${xpWin('w1',90,1000,900,'Experimento_ARG_2013.exe',icoExe,'¿Desea ejecutar este programa?<br><span style="font-size:23px;color:#444">Destino: <b>Argentina</b> · Tipo: prueba de producto</span>',['Ejecutar','Cancelar'])}
+ ${flecha}${mano}<div class="abs" id="fx" style="inset:0;background:#fff;pointer-events:none"></div>${ruido()}`,(sc,u)=>{
+ const cv=$(sc,'#fl'),g=cv.getContext('2d');g.fillStyle='#0b2236';g.fillRect(0,0,1080,1920);
+ const z=lerp(1.14,1.0,eo(seg(u,0,1.2))),ph=u*5.2;
+ for(let x=0;x<1080;x+=6){const k=x/1080,amp=26+40*k,dy=Math.sin(k*7.5-ph)*amp,sl=Math.cos(k*7.5-ph);
+  const sx=60+x/z*(1080/1080)-(1080/z-1080)/2*0;
+  g.drawImage(flagCv,60+(x-540)/z+540,90+(-960)/z+960,6/z,1920/z,x,dy-110,6,2140);
+  g.fillStyle=sl>0?`rgba(255,255,255,${sl*.16})`:`rgba(0,20,60,${-sl*.22})`;g.fillRect(x,0,6,1920)}
+ // golpe del logo
+ const lg=$(sc,'#lg'),kl=seg(u,.8,1.1);lg.style.opacity=kl>0?1:0;lg.style.transform=`scale(${lerp(2.6,1,eb(kl))}) rotate(${lerp(-8,0,eo(kl))}deg)`;
+ const st=$(sc,'#st'),ks=seg(u,1.15,1.35);st.style.opacity=ks>0?.92:0;st.style.transform=`rotate(-12deg) scale(${lerp(2.2,1,eo(ks))})`;
+ const shake=(u>.8&&u<1.15?(1-seg(u,.8,1.15)):0)+(u>1.15&&u<1.45?(1-seg(u,1.15,1.45))*.6:0);
+ sc.style.transform=`translate(${Math.sin(u*97)*22*shake}px,${Math.cos(u*83)*22*shake}px) scale(${1+.05*Math.min(1,shake*3)})`;
+ const fx=$(sc,'#fx');fx.style.opacity=Math.max(1-seg(u,0,.25),(1-seg(u,.8,1.0))*(u>=.8?.7:0),seg(u,2.7,3)*.9);
+ // pop-up
+ const w=$(sc,'#w1'),k=eb(seg(u,1.6,1.95));w.style.opacity=seg(u,1.6,1.7);w.style.transform=`scale(${lerp(.6,1,k)})`;
+ const b=w.querySelector('button');const r=b.getBoundingClientRect();const bx=r.left+r.width/2,by=r.top+r.height/2;
+ const [cf,cm]=sc.querySelectorAll('.cursor');const p=eio(seg(u,1.75,2.3));const x=lerp(860,bx,p),y=lerp(1560,by,p);
+ ponerCursor(cf,x,y,u>1.7&&u<2.2);ponerCursor(cm,x-14,y,u>=2.2);
+ b.className=u>2.4&&u<2.65?'on':(u>=2.2?'hov':'');
  moverRuido(sc,u)});
 
 // 2 · 3–6  ¿Te acordás? revelación
