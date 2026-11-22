@@ -1,6 +1,6 @@
 # Episodio 002 — Flappy Bird: el juego que valía un iPhone de cien mil dólares
 
-**Estado:** v2: gancho original sin "todavía" (decisión del autor)
+**Estado:** TERMINADO (41 s). Gancho original sin "todavía".
 **Formato:** 9:16 · 1080×1920 · ~45 s
 **Locución:** ~105 palabras
 
