@@ -69,7 +69,7 @@ Cuando el usuario pida los recursos animados de un guion, generá código limpio
 - **Zonas seguras:** dejá libres los ~250 px superiores, los ~400 px inferiores y los ~150 px del borde derecho (los tapa la interfaz de Reels/TikTok). Textos clave y subtítulos van en el centro.
 - Animaciones con duración y timing alineados a la escaleta (indicá en comentarios a qué bloque corresponde cada animación).
 - Incluí un botón o tecla para **reiniciar la animación**, así el usuario puede grabar la pantalla varias veces.
-- **Subtítulos:** sin fondo, sombra sutil bien difuminada, **máximo 3 palabras**, aparecen **de a una palabra** sincronizadas con la voz (subida corta de ~14 px + fade de ~0,2 s). Palabras clave en otro peso/estilo (Fira Sans 900 itálica, verde Aero `#C6FF5E`). Sin puntuación final salvo "…" y "?". No se subtitula lo que ya está escrito en pantalla. Detalle en `estilo/guia-visual.md` §8.
+- **Subtítulos:** sin fondo, sombra sutil bien difuminada, **máximo 3 palabras**, **alternan dos animaciones** grupo por grupo: (A) aparecen **de a una palabra** sincronizadas con la voz y (B) las **3 palabras suben juntas** al empezar el grupo; ambas con subida corta de ~14 px + fade de ~0,2 s. Palabras clave en otro peso/estilo (Fira Sans 900 itálica, verde Aero `#C6FF5E`). Sin puntuación final salvo "…" y "?". No se subtitula lo que ya está escrito en pantalla. Detalle en `estilo/guia-visual.md` §8.
 
 **Collage parallax:** cada imagen en su propia capa con profundidad (z) y velocidad distintas, movimiento de cámara suave (paneo/zoom lento con ease-in-out), recortes tipo sticker o foto con borde blanco, sombras suaves y rotaciones leves. Las ventanas XP/Vista pueden flotar entre capas.
 

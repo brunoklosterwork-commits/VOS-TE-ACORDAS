@@ -284,7 +284,8 @@ window.render=async t=>{pend.length=0;
  const g=GR.find(g=>t>=g.w[0][0]&&t<g.t1);
  if(g){const key=g.w[0][0];if(cap.dataset.k!=key){cap.dataset.k=key;cap.innerHTML=g.w.map(w=>`<span class="${w[2]?'k':''}">${limpio(w[1])}</span>`).join('')}
   const out=1-seg(t,g.t1-.1,g.t1);
-  cap.querySelectorAll('span').forEach((s,i)=>{const k=seg(t,g.w[i][0],g.w[i][0]+.22),e=eo(k);s.style.opacity=e*out;s.style.transform=`translateY(${(1-e)*14}px)`})}
+  const juntas=GR.indexOf(g)%2==1; /* alterna: de a una palabra / las 3 juntas */
+  cap.querySelectorAll('span').forEach((s,i)=>{const t0=juntas?g.w[0][0]:g.w[i][0];const k=seg(t,t0,t0+(juntas?.28:.22)),e=eo(k);s.style.opacity=e*out;s.style.transform=`translateY(${(1-e)*14}px)`})}
  else{cap.innerHTML='';cap.dataset.k=''}
  await Promise.all(pend);};
 window.render(0);
