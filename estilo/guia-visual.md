@@ -77,7 +77,18 @@ Tratamiento al usarlo: grano fino, leve viñeta, saturación −10 a −20 %. Pa
 - Burbujas que suben lento, con reflejo especular arriba a la izquierda.
 - Un estímulo nuevo cada 2 a 4 segundos.
 
-## 8. Lo que no hacemos
+## 8. Subtítulos
+
+Estándar desde el episodio 002 (código de referencia: `episodios/002-flappy-bird/animaciones/scenes.js`, bloque "subtítulos").
+- **Sin fondo.** Solo una sombra sutil y bien difuminada (`0 3px 24px rgba(0,18,36,.7)` + `0 1px 5px rgba(0,18,36,.5)`).
+- **Máximo 3 palabras** en pantalla. El grupo corta antes si hay puntuación.
+- **Aparecen de a una palabra**, sincronizadas con la voz: suben 14 px con un fade corto (0,22 s, ease-out). El grupo sale con un fade de 0,1 s.
+- Fira Sans 700, 70 px, blanco, centrado a la altura y ≈ 1385 (dentro de la zona segura).
+- **Palabras clave** (cifras, la palabra que cuenta la historia: *dólares*, *adicta*, *explotó*…) en **Fira Sans 900 itálica, verde Aero `#C6FF5E`**.
+- No llevan puntuación final, salvo "…" y signos de pregunta.
+- Donde el texto ya está en pantalla (un tuit, un chat), no se subtitula.
+
+## 9. Lo que no hacemos
 
 - No usamos el wallpaper "Bliss" original ni logos de Windows/Microsoft: la colina se recrea (la referencia de colores ya es una versión libre).
 - No redibujamos logos de marcas: el producto real aparece en fotos o archivo.

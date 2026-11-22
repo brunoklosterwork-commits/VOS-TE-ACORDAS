@@ -145,19 +145,23 @@ def(35.85,41,`<div class="cielo"></div>${paisaje}<div class="bb">${bubbles(22,13
  const t1='Y vos… ¿te acordás cuál fue tu récord?';$(sc,'#m1').textContent=t1.slice(0,Math.round(seg(u,.2,2.3)*t1.length))||' ';
  $(sc,'#cu').style.opacity=Math.floor(u*2)%2?0:1;$(sc,'#hd').style.opacity=seg(u,3,3.5)});
 
-/* subtítulos = locución real */
-const CUES=[[0.05,2.6,'Tu iPhone puede valer cien mil dólares…'],[2.8,4.85,'si tiene este juego instalado.'],
- [4.95,9.85,'En febrero de 2014, Flappy Bird era el fenómeno más grande del planeta.'],
- [9.95,14.6,'Su creador, un programador de Vietnam, ganaba cincuenta mil dólares por día.'],
- [14.75,19.45,'Pero la fama se le fue de las manos: la gente se volvía adicta, lo acosaban…'],[19.5,21.5,'y él dijo que no podía dormir.'],
- [21.6,23.45,'Un sábado a la tarde tuiteó:'],[27.85,28.75,'Y cumplió.'],
- [28.85,31.6,'De un día para el otro, internet explotó:'],[31.65,35.8,'pedían fortunas por celulares usados, solo por tener la app guardada.']];
-const cap=document.createElement('div');cap.id='cap';stage.appendChild(cap);
+/* subtítulos palabra por palabra (máx. 3), sin fondo, sombra difusa; palabras clave en otro peso/color */
+const GR=[{"t1": 1.12, "w": [[0.1, "Tu", 0], [0.31, "iPhone", 0], [0.78, "puede", 0]]}, {"t1": 1.88, "w": [[1.12, "valer", 0], [1.46, "cien", 1], [1.67, "mil", 1]]}, {"t1": 2.95, "w": [[1.88, "dólares…", 1]]}, {"t1": 3.78, "w": [[2.95, "si", 0], [3.14, "tiene", 0], [3.46, "este", 0]]}, {"t1": 5.1, "w": [[3.78, "juego", 1], [4.09, "instalado.", 0]]}, {"t1": 6.0, "w": [[5.1, "En", 0], [5.31, "febrero", 0], [5.79, "de", 0]]}, {"t1": 6.95, "w": [[6.0, "2014,", 1]]}, {"t1": 7.68, "w": [[6.95, "Flappy", 0], [7.15, "Bird", 0], [7.35, "era", 0]]}, {"t1": 8.67, "w": [[7.68, "el", 0], [7.88, "fenómeno", 1], [8.46, "más", 0]]}, {"t1": 10.1, "w": [[8.67, "grande", 0], [8.99, "del", 0], [9.2, "planeta.", 1]]}, {"t1": 10.66, "w": [[10.1, "Su", 0], [10.31, "creador,", 0]]}, {"t1": 11.7, "w": [[10.66, "un", 0], [10.87, "programador", 0], [11.49, "de", 0]]}, {"t1": 12.25, "w": [[11.7, "Vietnam,", 1]]}, {"t1": 13.49, "w": [[12.25, "ganaba", 0], [12.76, "cincuenta", 1], [13.27, "mil", 1]]}, {"t1": 14.85, "w": [[13.49, "dólares", 1], [14.0, "por", 0], [14.22, "día.", 0]]}, {"t1": 15.49, "w": [[14.85, "Pero", 0], [15.1, "la", 0], [15.25, "fama", 0]]}, {"t1": 15.95, "w": [[15.49, "se", 0], [15.65, "le", 0], [15.8, "fue", 0]]}, {"t1": 16.85, "w": [[15.95, "de", 0], [16.1, "las", 0], [16.25, "manos:", 0]]}, {"t1": 17.63, "w": [[16.85, "la", 0], [17.07, "gente", 0], [17.42, "se", 0]]}, {"t1": 18.47, "w": [[17.63, "volvía", 0], [17.98, "adicta,", 1]]}, {"t1": 19.55, "w": [[18.47, "lo", 0], [18.68, "acosaban…", 1]]}, {"t1": 20.29, "w": [[19.55, "y", 0], [19.75, "él", 0], [19.96, "dijo", 0]]}, {"t1": 21.02, "w": [[20.29, "que", 0], [20.49, "no", 0], [20.69, "podía", 0]]}, {"t1": 21.7, "w": [[21.02, "dormir.", 1]]}, {"t1": 22.43, "w": [[21.7, "Un", 0], [21.87, "sábado", 0], [22.25, "a", 0]]}, {"t1": 23.97, "w": [[22.43, "la", 0], [22.6, "tarde", 0], [22.87, "tuiteó:", 1]]}, {"t1": 28.9, "w": [[27.95, "Y", 0], [28.16, "cumplió.", 1]]}, {"t1": 29.55, "w": [[28.9, "De", 0], [29.12, "un", 0], [29.33, "día", 0]]}, {"t1": 30.47, "w": [[29.55, "para", 0], [29.9, "el", 0], [30.12, "otro,", 0]]}, {"t1": 31.75, "w": [[30.47, "internet", 0], [30.96, "explotó:", 1]]}, {"t1": 32.75, "w": [[31.75, "pedían", 0], [32.08, "fortunas", 1], [32.54, "por", 0]]}, {"t1": 34.1, "w": [[32.75, "celulares", 0], [33.34, "usados,", 0]]}, {"t1": 34.85, "w": [[34.1, "solo", 0], [34.39, "por", 0], [34.56, "tener", 0]]}, {"t1": 36.2, "w": [[34.85, "la", 0], [35.03, "app", 0], [35.2, "guardada.", 1]]}];
+const cap=document.createElement('div');cap.id='cap2';stage.appendChild(cap);
+const capStyle=document.createElement('style');capStyle.textContent=`#cap2{position:absolute;left:60px;right:150px;top:1385px;text-align:center;white-space:nowrap;pointer-events:none}
+#cap2 span{display:inline-block;margin:0 .14em;font:700 70px/1.1 var(--t);color:#fff;letter-spacing:-.01em;
+ text-shadow:0 3px 24px rgba(0,18,36,.7),0 1px 5px rgba(0,18,36,.5)}
+#cap2 span.k{font-weight:900;font-style:italic;color:#c6ff5e;text-shadow:0 3px 24px rgba(0,25,10,.8),0 1px 5px rgba(0,25,10,.6)}`;
+document.head.appendChild(capStyle);
+const limpio=w=>w.replace(/[,.:]+$/,'');
 window.DUR=41;
 window.render=async t=>{pend.length=0;
  for(const s of SC){const on=t>=s.t0&&t<s.t1;s.el.style.display=on?'block':'none';if(on)s.up(s.el,t-s.t0)}
- const c=CUES.find(c=>t>=c[0]&&t<c[1]);
- if(c){if(cap.dataset.k!=c[2]){cap.innerHTML=`<span>${c[2]}</span>`;cap.dataset.k=c[2]}cap.style.opacity=Math.min(seg(t,c[0],c[0]+.15),1-seg(t,c[1]-.12,c[1]))}else cap.style.opacity=0;
+ const g=GR.find(g=>t>=g.w[0][0]&&t<g.t1);
+ if(g){const key=g.w[0][0];if(cap.dataset.k!=key){cap.dataset.k=key;cap.innerHTML=g.w.map(w=>`<span class="${w[2]?'k':''}">${limpio(w[1])}</span>`).join('')}
+  const out=1-seg(t,g.t1-.1,g.t1);
+  cap.querySelectorAll('span').forEach((s,i)=>{const k=seg(t,g.w[i][0],g.w[i][0]+.22),e=eo(k);s.style.opacity=e*out;s.style.transform=`translateY(${(1-e)*14}px)`})}
+ else{cap.innerHTML='';cap.dataset.k=''}
  await Promise.all(pend);};
 window.render(0);
 }
