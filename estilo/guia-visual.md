@@ -100,7 +100,15 @@ Frenético desde el episodio 002 v4:
 - En cada corte de escena: flash blanco corto + whoosh.
 - Videos de 30 a 40 segundos.
 
-## 10. Lo que no hacemos
+## 10. Personajes y estímulo
+
+Desde el episodio 003 v2 (`componentes/personajes.js`):
+- **Personajes animados originales** (vector, estilo simple y amable): pibes y adultos con modos de animación (salta, corre, camina, saluda, baila, mira, celu) y parpadeo.
+- **Jugar con la infancia y la nostalgia:** un pibe que representa al espectador de chico, y su versión adulta hoy. Cuando la historia "vuelve" al pasado, el adulto recupera el color.
+- **Estímulo constante:** algo nuevo pasa cada 1–2 s (chispas en palabras clave, confeti, recuerdos que vuelan, objetos que entran con rebote). Nunca una escena quieta más de 2 s.
+- Nunca personajes con derechos (de dibujos, juegos o marcas): siempre propios.
+
+## 11. Lo que no hacemos
 
 - No usamos el wallpaper "Bliss" original ni logos de Windows/Microsoft: la colina se recrea (la referencia de colores ya es una versión libre).
 - No redibujamos logos de marcas: el producto real aparece en fotos o archivo.

@@ -95,6 +95,13 @@ for i in range(3): put(tic(), 51.85+i*.25, .5)
 # 8 restaurar
 put(ding(), 53.25, .25); put(click(), 55.65, .9); put(whoosh(.8), 56.1, .3); put(click(), 56.3, .6)
 for i in range(10): put(bubble(520+i*60), 56.4+i*.07, .2)
+# extras v2: chispas, saltos, confeti, pasos
+for at in (3.1,4.25,20.3,53.5+3.2-3.2+3.0): put(tone(1568,.5,6,(1,.4))+tone(2093,.5,7,(1,)), at, .12)
+for at in (11.3,12.5,14.3): put(tone(1760,.4,7,(1,.3)), at, .1)
+for i in range(16): put(click()*.25, 29.6+i*.24, .35)   # pasos del pibe corriendo
+for i in range(10): put(click()*.2, 35.2+i*.33, .3)     # pasos del adulto
+for at in (41.05,42.7,44.3,45.9): put(tone(2093,.35,8,(1,.3)), at+.05, .1)
+put(tone(1318,.6,5,(1,.4))+tone(1760,.6,5,(1,)), 56.3, .15)
 # 9 cierre
 put(notif(), 58.9, .3)
 for i in range(5): put(click()*.5, 60.6+i*.55, .5)
