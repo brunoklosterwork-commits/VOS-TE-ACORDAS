@@ -1,6 +1,6 @@
 # Episodio 003 — ¿Por qué los colores de los 2000 se veían distintos?
 
-**Estado:** v2: gancho A ("Antes veías otros colores. ¿Sabías?"), listo para generar la voz
+**Estado:** TERMINADO (56 s, voz de Daniela)
 **Formato:** 9:16 · 1080×1920 · ~50–55 s · **100% animación** (no hay material de archivo)
 **Locución:** ~155 palabras, en segunda persona del singular (le hablamos a una sola persona)
 
