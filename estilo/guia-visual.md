@@ -95,8 +95,9 @@ Estándar desde el episodio 002 (código de referencia: `episodios/002-flappy-bi
 
 Frenético desde el episodio 002 v4:
 - Pausas de la voz recortadas a ~0,1 s y voz acelerada ×1,1 (sin cambiar el tono). Solo se deja aire antes de un remate ("Y cumplió.") y del cierre.
-- Golpe de cámara (zoom ~3,5 % que vuelve en 0,12 s) cada vez que entra un grupo de subtítulos.
-- En cada corte de escena: flash blanco corto + zoom de 7 % + mini-giro, con un whoosh.
+- **Movimiento de cámara continuo por escena**, alternando: zoom in, zoom out y travelings laterales (ease in-out, durante toda la escena). En los travelings, escala ≥ 1,1 para que no se vean bordes, y cuidando que no se corten elementos de los costados.
+- **Nada de golpes de cámara** (zooms bruscos que van y vuelven).
+- En cada corte de escena: flash blanco corto + whoosh.
 - Videos de 30 a 40 segundos.
 
 ## 10. Lo que no hacemos

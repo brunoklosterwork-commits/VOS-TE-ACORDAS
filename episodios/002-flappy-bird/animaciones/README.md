@@ -8,5 +8,5 @@ Necesita al lado (no se suben al repo, salen del Drive "Video 2"): `assets/` (eb
 
 ## Versión rápida (v4, 34 s)
 - La voz se aceleró ×1,12 y las pausas se achicaron a ~0,1 s (`mat/vo_fast.wav`). `map.json` traduce tiempos viejos → nuevos; `render(tn)` convierte con `toOld()`, así las escenas y subtítulos (definidos en tiempo original) se comprimen solos.
-- Ritmo frenético: golpe de cámara (zoom 3,5 %) en cada grupo de subtítulos + flash y mini-giro en cada corte de escena + whoosh en cada corte.
+- Ritmo: cada escena tiene su movimiento de cámara (zoom in, zoom out o traveling lateral, `CAM` en scenes.js) + flash corto y whoosh en cada corte. Sin golpes de cámara.
 - Subtítulos a 88 px, se achican solos si un grupo no entra en el ancho.

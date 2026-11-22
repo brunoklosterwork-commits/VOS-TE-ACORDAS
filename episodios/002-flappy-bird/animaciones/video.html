@@ -174,8 +174,8 @@ def(0,4.9,`<div class="abs" style="inset:0;background:linear-gradient(180deg,#ea
 def(4.9,9.9,`<div class="cielo"></div>${paisaje}<div class="bb">${bubbles(16,101).replace(/burbuja/g,'burbuja up')}</div>
  <div class="chip" id="d" style="left:50%;top:260px">FEBRERO 2014</div>
  ${telefono('ph',360,370,360)}
- <div class="chip" id="c1" style="left:60px;top:560px;font-size:40px;text-align:center">#1<div style="font-size:26px;font-weight:600">en más de 100 países</div></div>
- <div class="chip" id="c2" style="left:740px;top:820px;font-size:40px;text-align:center">50 M<div style="font-size:26px;font-weight:600">de descargas</div></div>`,(sc,u)=>{
+ <div class="chip" id="c1" style="left:130px;top:560px;font-size:40px;text-align:center">#1<div style="font-size:26px;font-weight:600">en más de 100 países</div></div>
+ <div class="chip" id="c2" style="left:700px;top:820px;font-size:40px;text-align:center">50 M<div style="font-size:26px;font-weight:600">de descargas</div></div>`,(sc,u)=>{
  subir(sc,u,101,90);seqAt($(sc,'#ph img'),'G',190,u);
  const p=$(sc,'#ph');p.style.transform=`translateY(${lerp(140,0,eo(seg(u,0,.6)))}px) rotate(${Math.sin(u*1.2)*2}deg)`;p.style.opacity=seg(u,0,.3);
  const d=$(sc,'#d');d.style.opacity=seg(u,.2,.5);d.style.transform=`translateX(-50%) scale(${lerp(.7,1,eb(seg(u,.2,.6)))})`;
@@ -292,11 +292,12 @@ window.render=async tn=>{pend.length=0;const t=toOld(tn);
   const juntas=GR.indexOf(g)%2==1; /* alterna: de a una palabra / las 3 juntas */
   cap.querySelectorAll('span').forEach((s,i)=>{const t0=juntas?g.w[0][0]:g.w[i][0];const k=seg(t,t0,t0+(juntas?.28:.22)),e=eo(k);s.style.opacity=e*out;s.style.transform=`translateY(${(1-e)*14}px)`})}
  else{cap.innerHTML='';cap.dataset.k=''}
- /* ritmo frenético: golpe de cámara en cada grupo de subtítulos y flash en cada corte */
- let gs=-9;for(const gg of GR){const s0=toNew(gg.w[0][0]);if(s0<=tn)gs=s0}
+ /* cámara: zoom in/out y travelings laterales, uno por escena (sin golpes) */
+ const CAM=[['in',1,1.07],['tr',1.1,45],['out',1.16,1],['in',1,1.14],['tr',1.1,-50],['tr',1.1,-40],['out',1.12,1]];
+ stage.style.transform='';
+ SC.forEach((s,i)=>{if(s.el.style.display!=='block')return;const k=eio(seg(tn,CUTN[i],CUTN[i+1]));const c=CAM[i];
+  s.el.style.transform=c[0]==='tr'?`scale(${c[1]}) translateX(${lerp(c[2],-c[2],k)}px)`:`scale(${lerp(c[1],c[2],k)})`});
  const dtc=Math.min(...CUTN.filter(c=>c>0&&c<=tn).map(c=>tn-c),9);
- const punch=Math.exp(-(tn-gs)/.12)*.035+Math.exp(-dtc/.1)*.07;
- stage.style.transform=`scale(${1+punch}) rotate(${Math.exp(-dtc/.1)*1.2*(Math.floor(tn)%2?1:-1)}deg)`;
  fl.style.opacity=Math.exp(-dtc/.06)*.45;
  await Promise.all(pend);};
 window.render(0);
